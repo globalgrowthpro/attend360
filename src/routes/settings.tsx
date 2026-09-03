@@ -79,7 +79,9 @@ function SettingsPage() {
             ["devices", "Devices"],
             ["roles", "Roles & Permissions"],
           ].map(([v, l]) => (
-            <TabsTrigger key={v} value={v}>{l}</TabsTrigger>
+            <TabsTrigger key={v} value={v as string}>
+              {l}
+            </TabsTrigger>
           ))}
         </TabsList>
 
