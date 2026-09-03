@@ -52,12 +52,6 @@ export function EmployeeShell({
                 );
               })}
             </nav>
-            <Link
-              to="/"
-              className="mt-3 flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium text-primary hover:bg-primary-soft"
-            >
-              Switch to Admin Panel
-            </Link>
           </div>
         </aside>
 
