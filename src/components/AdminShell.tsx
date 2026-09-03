@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import type { ReactNode } from "react";
 
+import logoAsset from "@/assets/attend360-logo.png.asset.json";
+import markAsset from "@/assets/attend360-mark.png.asset.json";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
