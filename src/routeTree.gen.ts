@@ -21,6 +21,8 @@ import { Route as EmployeeIndexRouteImport } from './routes/employee.index'
 import { Route as EmployeeAttendanceRouteImport } from './routes/employee.attendance'
 import { Route as EmployeeCorrectionRouteImport } from './routes/employee.correction'
 import { Route as EmployeeHistoryRouteImport } from './routes/employee.history'
+import { Route as EmployeeProfileRouteImport } from './routes/employee.profile'
+import { Route as EmployeeReportsRouteImport } from './routes/employee.reports'
 import { Route as EmployeesIndexRouteImport } from './routes/employees.index'
 import { Route as EmployeesIdRouteImport } from './routes/employees.$id'
 import { Route as EmployeesNewRouteImport } from './routes/employees.new'
@@ -85,6 +87,16 @@ const EmployeeHistoryRoute = EmployeeHistoryRouteImport.update({
   path: '/employee/history',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EmployeeProfileRoute = EmployeeProfileRouteImport.update({
+  id: '/employee/profile',
+  path: '/employee/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EmployeeReportsRoute = EmployeeReportsRouteImport.update({
+  id: '/employee/reports',
+  path: '/employee/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const EmployeesIndexRoute = EmployeesIndexRouteImport.update({
   id: '/employees/',
   path: '/employees/',
@@ -113,6 +125,8 @@ export interface FileRoutesByFullPath {
   '/employee/attendance': typeof EmployeeAttendanceRoute
   '/employee/correction': typeof EmployeeCorrectionRoute
   '/employee/history': typeof EmployeeHistoryRoute
+  '/employee/profile': typeof EmployeeProfileRoute
+  '/employee/reports': typeof EmployeeReportsRoute
   '/employees/$id': typeof EmployeesIdRoute
   '/employees/new': typeof EmployeesNewRoute
   '/employee/': typeof EmployeeIndexRoute
@@ -130,6 +144,8 @@ export interface FileRoutesByTo {
   '/employee/attendance': typeof EmployeeAttendanceRoute
   '/employee/correction': typeof EmployeeCorrectionRoute
   '/employee/history': typeof EmployeeHistoryRoute
+  '/employee/profile': typeof EmployeeProfileRoute
+  '/employee/reports': typeof EmployeeReportsRoute
   '/employees/$id': typeof EmployeesIdRoute
   '/employees/new': typeof EmployeesNewRoute
   '/employee': typeof EmployeeIndexRoute
@@ -148,6 +164,8 @@ export interface FileRoutesById {
   '/employee/attendance': typeof EmployeeAttendanceRoute
   '/employee/correction': typeof EmployeeCorrectionRoute
   '/employee/history': typeof EmployeeHistoryRoute
+  '/employee/profile': typeof EmployeeProfileRoute
+  '/employee/reports': typeof EmployeeReportsRoute
   '/employees/$id': typeof EmployeesIdRoute
   '/employees/new': typeof EmployeesNewRoute
   '/employee/': typeof EmployeeIndexRoute
@@ -167,6 +185,8 @@ export interface FileRouteTypes {
     | '/employee/attendance'
     | '/employee/correction'
     | '/employee/history'
+    | '/employee/profile'
+    | '/employee/reports'
     | '/employees/$id'
     | '/employees/new'
     | '/employee/'
@@ -184,6 +204,8 @@ export interface FileRouteTypes {
     | '/employee/attendance'
     | '/employee/correction'
     | '/employee/history'
+    | '/employee/profile'
+    | '/employee/reports'
     | '/employees/$id'
     | '/employees/new'
     | '/employee'
@@ -201,6 +223,8 @@ export interface FileRouteTypes {
     | '/employee/attendance'
     | '/employee/correction'
     | '/employee/history'
+    | '/employee/profile'
+    | '/employee/reports'
     | '/employees/$id'
     | '/employees/new'
     | '/employee/'
@@ -219,6 +243,8 @@ export interface RootRouteChildren {
   EmployeeAttendanceRoute: typeof EmployeeAttendanceRoute
   EmployeeCorrectionRoute: typeof EmployeeCorrectionRoute
   EmployeeHistoryRoute: typeof EmployeeHistoryRoute
+  EmployeeProfileRoute: typeof EmployeeProfileRoute
+  EmployeeReportsRoute: typeof EmployeeReportsRoute
   EmployeesIdRoute: typeof EmployeesIdRoute
   EmployeesNewRoute: typeof EmployeesNewRoute
   EmployeeIndexRoute: typeof EmployeeIndexRoute
@@ -311,6 +337,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmployeeHistoryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/employee/profile': {
+      id: '/employee/profile'
+      path: '/employee/profile'
+      fullPath: '/employee/profile'
+      preLoaderRoute: typeof EmployeeProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/employee/reports': {
+      id: '/employee/reports'
+      path: '/employee/reports'
+      fullPath: '/employee/reports'
+      preLoaderRoute: typeof EmployeeReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/employees/': {
       id: '/employees/'
       path: '/employees'
@@ -347,6 +387,8 @@ const rootRouteChildren: RootRouteChildren = {
   EmployeeAttendanceRoute: EmployeeAttendanceRoute,
   EmployeeCorrectionRoute: EmployeeCorrectionRoute,
   EmployeeHistoryRoute: EmployeeHistoryRoute,
+  EmployeeProfileRoute: EmployeeProfileRoute,
+  EmployeeReportsRoute: EmployeeReportsRoute,
   EmployeesIdRoute: EmployeesIdRoute,
   EmployeesNewRoute: EmployeesNewRoute,
   EmployeeIndexRoute: EmployeeIndexRoute,
