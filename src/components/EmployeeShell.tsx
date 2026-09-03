@@ -2,6 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { CalendarDays, Clock, FileBarChart, Home, User } from "lucide-react";
 import type { ReactNode } from "react";
 
+import logoAsset from "@/assets/attend360-logo.png.asset.json";
 import { cn } from "@/lib/utils";
 
 const nav = [
