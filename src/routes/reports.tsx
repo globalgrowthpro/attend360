@@ -71,7 +71,7 @@ function Filters() {
       ].map(([label, options]) => (
         <div key={label as string}>
           <Label className="mb-1.5 block text-xs text-muted-foreground">{label as string}</Label>
-          <Select defaultValue={(options as string[])[0]}>
+          <Select defaultValue={(options as string[])[0] ?? ""}>
             <SelectTrigger><SelectValue /></SelectTrigger>
             <SelectContent>
               {(options as string[]).map((o) => (

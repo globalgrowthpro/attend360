@@ -65,8 +65,8 @@ function Field({
 }: {
   label: string;
   children: React.ReactNode;
-  error?: string;
-  full?: boolean;
+  error?: string | undefined;
+  full?: boolean | undefined;
 }) {
   return (
     <div className={full ? "sm:col-span-2" : undefined}>
