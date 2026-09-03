@@ -6,8 +6,7 @@ import {
   LayoutDashboard,
   LogOut,
   Menu,
-  Settings,
-  ShieldCheck,
+Settings,
   SquareCheckBig,
   User,
   Users,
@@ -62,14 +61,6 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
       >
         <User className="size-4" />
         My Profile
-      </Link>
-      <Link
-        to="/employee"
-        onClick={onNavigate}
-        className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary-soft"
-      >
-        <ShieldCheck className="size-4" />
-        Employee Panel
       </Link>
       <Link
         to="/login"
