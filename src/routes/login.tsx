@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import markAsset from "@/assets/attend360-mark.png.asset.json";
+import logoAsset from "@/assets/attend360-logo.png.asset.json";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -26,9 +26,10 @@ function LoginPage() {
   return (
     <div className="grid min-h-screen lg:grid-cols-2">
       <div className="hidden flex-col justify-between bg-primary p-10 text-primary-foreground lg:flex">
-        <div className="flex items-center gap-2.5">
-          <img src={markAsset.url} alt="" className="size-9 rounded-lg" />
-          <span className="text-lg font-semibold">Attend360</span>
+<div className="flex items-center gap-2.5">
+          <div className="rounded-xl bg-white p-1.5">
+            <img src={logoAsset.url} alt="Attend360" className="h-8 w-auto" />
+          </div>
         </div>
         <div className="max-w-md space-y-4">
           <h2 className="text-3xl font-semibold leading-tight">
