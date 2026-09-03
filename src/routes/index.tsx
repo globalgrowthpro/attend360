@@ -28,16 +28,16 @@ import { activityFeed, attendanceTrend } from "@/lib/attendance-data";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Admin Dashboard — TimeTrack Attendance" },
+      { title: "Admin Dashboard — Attend360 Attendance" },
       {
         name: "description",
         content:
           "Live attendance overview: present, late, absent and on-leave headcount, today's activity feed and quick actions.",
       },
-      { property: "og:title", content: "Admin Dashboard — TimeTrack Attendance" },
+      { property: "og:title", content: "Admin Dashboard — Attend360 Attendance" },
       {
         property: "og:description",
-        content: "Monitor organization-wide attendance in real time with TimeTrack.",
+        content: "Monitor organization-wide attendance in real time with Attend360.",
       },
     ],
   }),

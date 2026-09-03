@@ -19,13 +19,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 export const Route = createFileRoute("/employee/reports")({
   head: () => ({
     meta: [
-      { title: "My Reports — TimeTrack" },
+      { title: "My Reports — Attend360" },
       {
         name: "description",
         content:
           "Personal attendance report: present, late and absent days, total working hours, overtime and weekly hour trend.",
       },
-      { property: "og:title", content: "My Reports — TimeTrack" },
+      { property: "og:title", content: "My Reports — Attend360" },
       { property: "og:description", content: "Track your own hours, punctuality and overtime." },
     ],
   }),

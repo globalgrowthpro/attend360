@@ -28,13 +28,13 @@ import {
 export const Route = createFileRoute("/settings")({
   head: () => ({
     meta: [
-      { title: "Settings — TimeTrack Attendance" },
+      { title: "Settings — Attend360 Attendance" },
       {
         name: "description",
         content:
           "Configure company details, attendance rules, work schedule, shifts, locations, devices and role permissions.",
       },
-      { property: "og:title", content: "Settings — TimeTrack Attendance" },
+      { property: "og:title", content: "Settings — Attend360 Attendance" },
       { property: "og:description", content: "Tune attendance rules, shifts, devices and permissions." },
     ],
   }),

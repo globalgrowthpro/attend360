@@ -22,13 +22,13 @@ import { absenceReport, lateReport } from "@/lib/attendance-data";
 export const Route = createFileRoute("/reports")({
   head: () => ({
     meta: [
-      { title: "Reports — TimeTrack Attendance" },
+      { title: "Reports — Attend360 Attendance" },
       {
         name: "description",
         content:
           "Attendance, late, absence and per-employee reports with date, department and location filters plus PDF, Excel and CSV export.",
       },
-      { property: "og:title", content: "Reports — TimeTrack Attendance" },
+      { property: "og:title", content: "Reports — Attend360 Attendance" },
       { property: "og:description", content: "Build and export attendance reports for any period." },
     ],
   }),

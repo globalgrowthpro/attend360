@@ -9,13 +9,13 @@ import { Switch } from "@/components/ui/switch";
 export const Route = createFileRoute("/employee/profile")({
   head: () => ({
     meta: [
-      { title: "My Profile — TimeTrack" },
+      { title: "My Profile — Attend360" },
       {
         name: "description",
         content:
           "Personal details, assigned shift and location, registered devices and notification preferences.",
       },
-      { property: "og:title", content: "My Profile — TimeTrack" },
+      { property: "og:title", content: "My Profile — Attend360" },
       { property: "og:description", content: "Your work profile, shift and registered devices." },
     ],
   }),

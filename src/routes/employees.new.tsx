@@ -16,13 +16,13 @@ import { Textarea } from "@/components/ui/textarea";
 export const Route = createFileRoute("/employees/new")({
   head: () => ({
     meta: [
-      { title: "Add Employee — TimeTrack Attendance" },
+      { title: "Add Employee — Attend360 Attendance" },
       {
         name: "description",
         content:
           "Create an employee record with personal details, employment data, shift and attendance rules, and account access.",
       },
-      { property: "og:title", content: "Add Employee — TimeTrack Attendance" },
+      { property: "og:title", content: "Add Employee — Attend360 Attendance" },
       { property: "og:description", content: "Onboard a new employee into the attendance system." },
     ],
   }),

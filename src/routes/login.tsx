@@ -10,13 +10,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Sign in — TimeTrack Attendance" },
+      { title: "Sign in — Attend360 Attendance" },
       {
         name: "description",
-        content: "Sign in to TimeTrack to check in, review attendance or manage your organization.",
+        content: "Sign in to Attend360 to check in, review attendance or manage your organization.",
       },
-      { property: "og:title", content: "Sign in — TimeTrack Attendance" },
-      { property: "og:description", content: "Access the TimeTrack admin and employee panels." },
+      { property: "og:title", content: "Sign in — Attend360 Attendance" },
+      { property: "og:description", content: "Access the Attend360 admin and employee panels." },
     ],
   }),
   component: LoginPage,
@@ -30,7 +30,7 @@ function LoginPage() {
           <div className="grid size-9 place-items-center rounded-lg bg-primary-foreground/15">
             <Clock className="size-5" />
           </div>
-          <span className="font-semibold">TimeTrack</span>
+          <span className="font-semibold">Attend360</span>
         </div>
         <div className="max-w-md space-y-4">
           <h2 className="text-3xl font-semibold leading-tight">

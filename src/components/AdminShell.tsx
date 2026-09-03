@@ -88,7 +88,7 @@ function Brand() {
         <Clock className="size-5" />
       </div>
       <div className="leading-tight">
-        <p className="text-sm font-semibold">TimeTrack</p>
+        <p className="text-sm font-semibold">Attend360</p>
         <p className="text-xs text-muted-foreground">Attendance Suite</p>
       </div>
     </div>
