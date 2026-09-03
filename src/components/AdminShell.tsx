@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import type { ReactNode } from "react";
 
+import logoAsset from "@/assets/attend360-logo.png.asset.json";
+import markAsset from "@/assets/attend360-mark.png.asset.json";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
@@ -83,13 +85,20 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
 
 function Brand() {
   return (
-    <div className="flex items-center gap-2.5 px-5 py-5">
-      <div className="grid size-9 place-items-center rounded-lg bg-primary text-primary-foreground">
-        <Clock className="size-5" />
-      </div>
-      <div className="leading-tight">
-        <p className="text-sm font-semibold">TimeTrack</p>
-        <p className="text-xs text-muted-foreground">Attendance Suite</p>
+    <div className="px-5 py-5">
+      <img
+        src={logoAsset.url}
+        alt="Attend360"
+        className="hidden h-8 w-auto lg:block"
+        width={200}
+        height={60}
+      />
+      <div className="flex items-center gap-2.5 lg:hidden">
+        <img src={markAsset.url} alt="Attend360" className="size-9 rounded-lg" />
+        <div className="leading-tight">
+          <p className="text-sm font-semibold">Attend360</p>
+          <p className="text-xs text-muted-foreground">Attendance Suite</p>
+        </div>
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { CalendarDays, Clock, FileBarChart, Home, User } from "lucide-react";
 import type { ReactNode } from "react";
 
+import logoAsset from "@/assets/attend360-logo.png.asset.json";
 import { cn } from "@/lib/utils";
 
 const nav = [
@@ -26,14 +27,9 @@ export function EmployeeShell({
       <div className="mx-auto flex max-w-6xl gap-6 px-4 py-5 sm:px-6">
         <aside className="hidden w-56 shrink-0 md:block">
           <div className="sticky top-6 rounded-2xl border border-border bg-card p-3 shadow-card">
-            <div className="flex items-center gap-2.5 px-2 py-3">
-              <div className="grid size-9 place-items-center rounded-lg bg-primary text-primary-foreground">
-                <Clock className="size-5" />
-              </div>
-              <div className="leading-tight">
-                <p className="text-sm font-semibold">TimeTrack</p>
-                <p className="text-xs text-muted-foreground">Self service</p>
-              </div>
+            <div className="px-2 py-3">
+              <img src={logoAsset.url} alt="Attend360" className="h-7 w-auto" />
+              <p className="mt-1 text-xs text-muted-foreground">Self service</p>
             </div>
             <nav className="mt-2 flex flex-col gap-1">
               {nav.map((item) => {

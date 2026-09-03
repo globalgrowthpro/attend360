@@ -10,13 +10,13 @@ import { Separator } from "@/components/ui/separator";
 export const Route = createFileRoute("/employee/attendance")({
   head: () => ({
     meta: [
-      { title: "My Attendance — TimeTrack" },
+      { title: "My Attendance — Attend360" },
       {
         name: "description",
         content:
           "Today's attendance detail: schedule, check-in and check-out times, working hours, device, location and status.",
       },
-      { property: "og:title", content: "My Attendance — TimeTrack" },
+      { property: "og:title", content: "My Attendance — Attend360" },
       { property: "og:description", content: "See exactly how today's attendance was recorded." },
     ],
   }),

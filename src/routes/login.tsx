@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Clock } from "lucide-react";
 
+import markAsset from "@/assets/attend360-mark.png.asset.json";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -10,13 +10,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 export const Route = createFileRoute("/login")({
   head: () => ({
     meta: [
-      { title: "Sign in — TimeTrack Attendance" },
+      { title: "Sign in — Attend360 Attendance" },
       {
         name: "description",
-        content: "Sign in to TimeTrack to check in, review attendance or manage your organization.",
+        content: "Sign in to Attend360 to check in, review attendance or manage your organization.",
       },
-      { property: "og:title", content: "Sign in — TimeTrack Attendance" },
-      { property: "og:description", content: "Access the TimeTrack admin and employee panels." },
+      { property: "og:title", content: "Sign in — Attend360 Attendance" },
+      { property: "og:description", content: "Access the Attend360 admin and employee panels." },
     ],
   }),
   component: LoginPage,
@@ -27,10 +27,8 @@ function LoginPage() {
     <div className="grid min-h-screen lg:grid-cols-2">
       <div className="hidden flex-col justify-between bg-primary p-10 text-primary-foreground lg:flex">
         <div className="flex items-center gap-2.5">
-          <div className="grid size-9 place-items-center rounded-lg bg-primary-foreground/15">
-            <Clock className="size-5" />
-          </div>
-          <span className="font-semibold">TimeTrack</span>
+          <img src={markAsset.url} alt="" className="size-9 rounded-lg" />
+          <span className="text-lg font-semibold">Attend360</span>
         </div>
         <div className="max-w-md space-y-4">
           <h2 className="text-3xl font-semibold leading-tight">

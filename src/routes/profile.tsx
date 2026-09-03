@@ -11,13 +11,13 @@ import { Switch } from "@/components/ui/switch";
 export const Route = createFileRoute("/profile")({
   head: () => ({
     meta: [
-      { title: "My Profile — TimeTrack Admin" },
+      { title: "My Profile — Attend360 Admin" },
       {
         name: "description",
         content: "Update your admin account details, notification preferences and security options.",
       },
-      { property: "og:title", content: "My Profile — TimeTrack Admin" },
-      { property: "og:description", content: "Manage your TimeTrack admin account." },
+      { property: "og:title", content: "My Profile — Attend360 Admin" },
+      { property: "og:description", content: "Manage your Attend360 admin account." },
     ],
   }),
   component: AdminProfilePage,

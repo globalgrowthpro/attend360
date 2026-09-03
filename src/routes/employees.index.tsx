@@ -28,13 +28,13 @@ import { employees } from "@/lib/attendance-data";
 export const Route = createFileRoute("/employees/")({
   head: () => ({
     meta: [
-      { title: "Employees — TimeTrack Attendance" },
+      { title: "Employees — Attend360 Attendance" },
       {
         name: "description",
         content:
           "Search, filter and manage the employee directory with department, location, status and today's attendance state.",
       },
-      { property: "og:title", content: "Employees — TimeTrack Attendance" },
+      { property: "og:title", content: "Employees — Attend360 Attendance" },
       { property: "og:description", content: "Manage your employee directory and attendance setup." },
     ],
   }),

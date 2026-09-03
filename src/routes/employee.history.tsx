@@ -18,13 +18,13 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/employee/history")({
   head: () => ({
     meta: [
-      { title: "Attendance History — TimeTrack" },
+      { title: "Attendance History — Attend360" },
       {
         name: "description",
         content:
           "Monthly attendance calendar with colour-coded present, late, absent, leave and weekend days plus daily detail.",
       },
-      { property: "og:title", content: "Attendance History — TimeTrack" },
+      { property: "og:title", content: "Attendance History — Attend360" },
       { property: "og:description", content: "Browse your attendance month by month." },
     ],
   }),

@@ -9,13 +9,13 @@ import { notifications, statusMeta, type AttendanceStatus } from "@/lib/attendan
 export const Route = createFileRoute("/notifications")({
   head: () => ({
     meta: [
-      { title: "Notifications — TimeTrack Attendance" },
+      { title: "Notifications — Attend360 Attendance" },
       {
         name: "description",
         content:
           "Notification center for late arrivals, absences, missing check-outs, correction requests and device registrations.",
       },
-      { property: "og:title", content: "Notifications — TimeTrack Attendance" },
+      { property: "og:title", content: "Notifications — Attend360 Attendance" },
       { property: "og:description", content: "Every attendance alert in one timeline." },
     ],
   }),

@@ -12,13 +12,13 @@ import { Separator } from "@/components/ui/separator";
 export const Route = createFileRoute("/employee/")({
   head: () => ({
     meta: [
-      { title: "Check In / Check Out — TimeTrack" },
+      { title: "Check In / Check Out — Attend360" },
       {
         name: "description",
         content:
           "Employee home: current time, today's schedule, one-tap check in and check out, and live working hours.",
       },
-      { property: "og:title", content: "Check In / Check Out — TimeTrack" },
+      { property: "og:title", content: "Check In / Check Out — Attend360" },
       { property: "og:description", content: "Start and end your workday in one tap." },
     ],
   }),

@@ -20,13 +20,13 @@ import { corrections } from "@/lib/attendance-data";
 export const Route = createFileRoute("/corrections")({
   head: () => ({
     meta: [
-      { title: "Correction Requests — TimeTrack" },
+      { title: "Correction Requests — Attend360" },
       {
         name: "description",
         content:
           "Review, approve or reject employee attendance correction requests with the original and requested times side by side.",
       },
-      { property: "og:title", content: "Correction Requests — TimeTrack" },
+      { property: "og:title", content: "Correction Requests — Attend360" },
       { property: "og:description", content: "Approve or reject attendance corrections in one place." },
     ],
   }),

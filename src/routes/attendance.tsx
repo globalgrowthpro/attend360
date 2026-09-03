@@ -30,13 +30,13 @@ import { attendanceRecords, statusMeta, type AttendanceRecord } from "@/lib/atte
 export const Route = createFileRoute("/attendance")({
   head: () => ({
     meta: [
-      { title: "Attendance — TimeTrack" },
+      { title: "Attendance — Attend360" },
       {
         name: "description",
         content:
           "Daily attendance log with check-in, check-out, working hours, status badges, location and device for every employee.",
       },
-      { property: "og:title", content: "Attendance — TimeTrack" },
+      { property: "og:title", content: "Attendance — Attend360" },
       { property: "og:description", content: "Review and correct daily attendance records." },
     ],
   }),

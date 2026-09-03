@@ -15,13 +15,13 @@ import { Textarea } from "@/components/ui/textarea";
 export const Route = createFileRoute("/employee/correction")({
   head: () => ({
     meta: [
-      { title: "Attendance Correction — TimeTrack" },
+      { title: "Attendance Correction — Attend360" },
       {
         name: "description",
         content:
           "Request a correction for a missed or wrong check-in or check-out and follow the approval status.",
       },
-      { property: "og:title", content: "Attendance Correction — TimeTrack" },
+      { property: "og:title", content: "Attendance Correction — Attend360" },
       { property: "og:description", content: "Fix a wrong attendance record in a few taps." },
     ],
   }),

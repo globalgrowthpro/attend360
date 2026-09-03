@@ -19,13 +19,13 @@ import { attendanceRecords, employees, workSchedule } from "@/lib/attendance-dat
 export const Route = createFileRoute("/employees/$id")({
   head: () => ({
     meta: [
-      { title: "Employee Profile — TimeTrack Attendance" },
+      { title: "Employee Profile — Attend360 Attendance" },
       {
         name: "description",
         content:
           "Employee profile with attendance summary, schedule, leave balance, documents and activity log.",
       },
-      { property: "og:title", content: "Employee Profile — TimeTrack Attendance" },
+      { property: "og:title", content: "Employee Profile — Attend360 Attendance" },
       { property: "og:description", content: "Review an employee's attendance record and schedule." },
     ],
   }),
