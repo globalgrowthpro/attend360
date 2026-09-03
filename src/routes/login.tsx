@@ -27,10 +27,8 @@ function LoginPage() {
     <div className="grid min-h-screen lg:grid-cols-2">
       <div className="hidden flex-col justify-between bg-primary p-10 text-primary-foreground lg:flex">
         <div className="flex items-center gap-2.5">
-          <div className="grid size-9 place-items-center rounded-lg bg-primary-foreground/15">
-            <Clock className="size-5" />
-          </div>
-          <span className="font-semibold">Attend360</span>
+          <img src={markAsset.url} alt="" className="size-9 rounded-lg" />
+          <span className="text-lg font-semibold">Attend360</span>
         </div>
         <div className="max-w-md space-y-4">
           <h2 className="text-3xl font-semibold leading-tight">
