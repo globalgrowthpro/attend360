@@ -248,28 +248,6 @@ export function AdminShell({
               </SheetContent>
             </Sheet>
 
-            {/* Desktop Topbar Collapse Button */}
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon"
-              onClick={toggleCollapsed}
-              className="hidden lg:flex size-8 text-muted-foreground hover:bg-accent hover:text-foreground"
-              title={collapsed ? t("Expand sidebar") : t("Collapse sidebar")}
-            >
-              {collapsed ? (
-                dir === "rtl" ? (
-                  <PanelLeftClose className="size-4 rotate-180" />
-                ) : (
-                  <PanelLeftOpen className="size-4" />
-                )
-              ) : dir === "rtl" ? (
-                <PanelLeftOpen className="size-4 rotate-180" />
-              ) : (
-                <PanelLeftClose className="size-4" />
-              )}
-            </Button>
-
             <div className="min-w-0 flex-1">
               <h1 className="truncate text-lg font-semibold tracking-tight">{t(title)}</h1>
               {description ? (
