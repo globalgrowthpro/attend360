@@ -24,6 +24,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { employees } from "@/lib/attendance-data";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/employees/")({
   head: () => ({
@@ -42,6 +43,7 @@ export const Route = createFileRoute("/employees/")({
 });
 
 function EmployeesPage() {
+  const { t } = useI18n();
   const [query, setQuery] = useState("");
   const [dept, setDept] = useState("all");
   const [loc, setLoc] = useState("all");
@@ -68,19 +70,19 @@ function EmployeesPage() {
 
   return (
     <AdminShell
-      title="Employees"
-      description={`${rows.length} of ${employees.length} employees shown`}
+      title={t("Employees")}
+      description={`${rows.length} ${t("of")} ${employees.length} ${t("employees shown")}`}
       actions={
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" className="hidden sm:inline-flex">
-            <Upload className="size-4" /> Import
+            <Upload className="size-4" /> {t("Import")}
           </Button>
           <Button variant="outline" size="sm" className="hidden sm:inline-flex">
-            <Download className="size-4" /> Export
+            <Download className="size-4" /> {t("Export")}
           </Button>
           <Button asChild size="sm">
             <Link to="/employees/new">
-              <UserPlus className="size-4" /> Add Employee
+              <UserPlus className="size-4" /> {t("Add Employee")}
             </Link>
           </Button>
         </div>
@@ -94,45 +96,45 @@ function EmployeesPage() {
               <Input
                 value={query}
                 onChange={(e) => setQuery(e.target.value.slice(0, 80))}
-                placeholder="Search employees..."
+                placeholder={t("Search employees...")}
                 className="ps-9"
-                aria-label="Search employees"
+                aria-label={t("Search employees")}
               />
             </div>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
               <Select value={dept} onValueChange={setDept}>
-                <SelectTrigger><SelectValue placeholder="Department" /></SelectTrigger>
+                <SelectTrigger><SelectValue placeholder={t("Department")} /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Departments</SelectItem>
+                  <SelectItem value="all">{t("All Departments")}</SelectItem>
                   {["IT", "HR", "Finance", "Operations", "Marketing"].map((d) => (
-                    <SelectItem key={d} value={d}>{d}</SelectItem>
+                    <SelectItem key={d} value={d}>{t(d)}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
               <Select value={loc} onValueChange={setLoc}>
-                <SelectTrigger><SelectValue placeholder="Location" /></SelectTrigger>
+                <SelectTrigger><SelectValue placeholder={t("Location")} /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Locations</SelectItem>
+                  <SelectItem value="all">{t("All Locations")}</SelectItem>
                   {["Cairo HQ", "Giza Office", "Alexandria Office"].map((l) => (
-                    <SelectItem key={l} value={l}>{l}</SelectItem>
+                    <SelectItem key={l} value={l}>{t(l)}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
               <Select value={status} onValueChange={setStatus}>
-                <SelectTrigger><SelectValue placeholder="Status" /></SelectTrigger>
+                <SelectTrigger><SelectValue placeholder={t("Status")} /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Any Status</SelectItem>
-                  <SelectItem value="active">Active</SelectItem>
-                  <SelectItem value="inactive">Inactive</SelectItem>
+                  <SelectItem value="all">{t("Any Status")}</SelectItem>
+                  <SelectItem value="active">{t("Active")}</SelectItem>
+                  <SelectItem value="inactive">{t("Inactive")}</SelectItem>
                 </SelectContent>
               </Select>
               <Select defaultValue="all">
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Types</SelectItem>
-                  <SelectItem value="full">Full-time</SelectItem>
-                  <SelectItem value="part">Part-time</SelectItem>
-                  <SelectItem value="contract">Contract</SelectItem>
+                  <SelectItem value="all">{t("All Types")}</SelectItem>
+                  <SelectItem value="full">{t("Full-time")}</SelectItem>
+                  <SelectItem value="part">{t("Part-time")}</SelectItem>
+                  <SelectItem value="contract">{t("Contract")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -142,14 +144,14 @@ function EmployeesPage() {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Employee</TableHead>
-                  <TableHead>ID</TableHead>
-                  <TableHead>Department</TableHead>
-                  <TableHead>Position</TableHead>
-                  <TableHead>Location</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Today</TableHead>
-                  <TableHead className="w-10" />
+                  <TableHead>{t("Employee")}</TableHead>
+                  <TableHead>{t("ID")}</TableHead>
+                  <TableHead>{t("Department")}</TableHead>
+                  <TableHead>{t("Position")}</TableHead>
+                  <TableHead>{t("Location")}</TableHead>
+                  <TableHead>{t("Status")}</TableHead>
+                  <TableHead>{t("Today")}</TableHead>
+                  <TableHead className="w-10 text-end">{t("Actions")}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -163,10 +165,10 @@ function EmployeesPage() {
                         <span className="font-medium hover:text-primary">{e.name}</span>
                       </Link>
                     </TableCell>
-                    <TableCell className="tabular text-muted-foreground">{e.code}</TableCell>
-                    <TableCell>{e.department}</TableCell>
+                    <TableCell className="tabular text-muted-foreground"><span dir="ltr">{e.code}</span></TableCell>
+                    <TableCell>{t(e.department)}</TableCell>
                     <TableCell className="text-muted-foreground">{e.position}</TableCell>
-                    <TableCell>{e.location}</TableCell>
+                    <TableCell>{t(e.location)}</TableCell>
                     <TableCell>
                       <span
                         className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium ${
@@ -174,11 +176,11 @@ function EmployeesPage() {
                         }`}
                       >
                         <span className={`size-1.5 rounded-full ${e.active ? "bg-success" : "bg-muted-foreground"}`} />
-                        {e.active ? "Active" : "Inactive"}
+                        {e.active ? t("Active") : t("Inactive")}
                       </span>
                     </TableCell>
                     <TableCell><StatusBadge status={e.today} /></TableCell>
-                    <TableCell>
+                    <TableCell className="text-end">
                       <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                           <Button variant="ghost" size="icon" aria-label={`Actions for ${e.name}`}>
@@ -187,17 +189,17 @@ function EmployeesPage() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                           <DropdownMenuItem asChild>
-                            <Link to="/employees/$id" params={{ id: e.id }}>View Profile</Link>
+                            <Link to="/employees/$id" params={{ id: e.id }}>{t("View Profile")}</Link>
                           </DropdownMenuItem>
-                          <DropdownMenuItem>Edit</DropdownMenuItem>
+                          <DropdownMenuItem>{t("Edit")}</DropdownMenuItem>
                           <DropdownMenuItem asChild>
-                            <Link to="/attendance">Attendance</Link>
+                            <Link to="/attendance">{t("Attendance")}</Link>
                           </DropdownMenuItem>
-                          <DropdownMenuItem>Attendance History</DropdownMenuItem>
-                          <DropdownMenuItem>Documents</DropdownMenuItem>
+                          <DropdownMenuItem>{t("Attendance History")}</DropdownMenuItem>
+                          <DropdownMenuItem>{t("Documents")}</DropdownMenuItem>
                           <DropdownMenuSeparator />
-                          <DropdownMenuItem>Deactivate</DropdownMenuItem>
-                          <DropdownMenuItem className="text-danger">Delete</DropdownMenuItem>
+                          <DropdownMenuItem>{t("Deactivate")}</DropdownMenuItem>
+                          <DropdownMenuItem className="text-danger">{t("Delete")}</DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>
                     </TableCell>
@@ -206,7 +208,7 @@ function EmployeesPage() {
                 {rows.length === 0 ? (
                   <TableRow>
                     <TableCell colSpan={8} className="py-10 text-center text-sm text-muted-foreground">
-                      No employees match these filters.
+                      {t("No employees match these filters.")}
                     </TableCell>
                   </TableRow>
                 ) : null}

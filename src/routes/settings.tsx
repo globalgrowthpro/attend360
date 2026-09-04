@@ -62,8 +62,8 @@ function SettingsPage() {
   const { t } = useI18n();
   return (
     <AdminShell
-      title="Settings"
-      description="Company, attendance rules, shifts, devices and permissions"
+      title={t("Settings")}
+      description={t("Company, attendance rules, shifts, devices and permissions")}
       actions={
         <Button size="sm" onClick={() => toast.success(t("Settings saved"))}>
           {t("Save changes")}
@@ -82,7 +82,7 @@ function SettingsPage() {
             ["roles", "Roles & Permissions"],
           ].map(([v, l]) => (
             <TabsTrigger key={v} value={v as string}>
-              {l}
+              {t(l as string)}
             </TabsTrigger>
           ))}
         </TabsList>
@@ -90,13 +90,13 @@ function SettingsPage() {
         <TabsContent value="general" className="mt-4">
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">General</CardTitle>
-              <CardDescription>Company identity and formatting defaults.</CardDescription>
+              <CardTitle className="text-base">{t("General")}</CardTitle>
+              <CardDescription>{t("Company identity and formatting defaults.")}</CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <Row label="Company Name"><Input defaultValue="Nile Digital Group" maxLength={100} /></Row>
-              <Row label="Logo"><Button variant="outline" className="w-full">Upload logo</Button></Row>
-              <Row label="Time Zone">
+              <Row label={t("Company Name")}><Input defaultValue="Nile Digital Group" maxLength={100} /></Row>
+              <Row label={t("Logo")}><Button variant="outline" className="w-full">{t("Upload logo")}</Button></Row>
+              <Row label={t("Time Zone")}>
                 <Select defaultValue="cairo">
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
@@ -106,7 +106,7 @@ function SettingsPage() {
                   </SelectContent>
                 </Select>
               </Row>
-              <Row label="Date Format">
+              <Row label={t("Date Format")}>
                 <Select defaultValue="dmy">
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
@@ -116,25 +116,25 @@ function SettingsPage() {
                   </SelectContent>
                 </Select>
               </Row>
-              <Row label="Time Format">
+              <Row label={t("Time Format")}>
                 <Select defaultValue="12">
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="12">12-hour</SelectItem>
-                    <SelectItem value="24">24-hour</SelectItem>
+                    <SelectItem value="12">{t("12-hour")}</SelectItem>
+                    <SelectItem value="24">{t("24-hour")}</SelectItem>
                   </SelectContent>
                 </Select>
               </Row>
-              <Row label="Language">
+              <Row label={t("Language")}>
                 <Select defaultValue="en">
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="en">English</SelectItem>
+                    <SelectItem value="en">{t("English")}</SelectItem>
                     <SelectItem value="ar">العربية</SelectItem>
                   </SelectContent>
                 </Select>
               </Row>
-              <Row label="Currency">
+              <Row label={t("Currency")}>
                 <Select defaultValue="egp">
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>

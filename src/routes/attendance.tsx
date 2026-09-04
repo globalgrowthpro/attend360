@@ -515,10 +515,10 @@ function AttendancePage() {
                 <TableHead>{t("Date")}</TableHead>
                 <TableHead>{t("Check In")}</TableHead>
                 <TableHead>{t("Check Out")}</TableHead>
-                <TableHead>Hours</TableHead>
+                <TableHead>{t("Hours")}</TableHead>
                 <TableHead>{t("Status")}</TableHead>
                 <TableHead>{t("Location")}</TableHead>
-                <TableHead>Device</TableHead>
+                <TableHead>{t("Device")}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -532,14 +532,14 @@ function AttendancePage() {
                 >
                   <TableCell>
                     <p className="font-medium">{r.employee}</p>
-                    <p className="text-xs text-muted-foreground tabular">{r.code}</p>
+                    <p className="text-xs text-muted-foreground tabular"><span dir="ltr">{r.code}</span></p>
                   </TableCell>
-                  <TableCell className="text-muted-foreground whitespace-nowrap">{r.date}</TableCell>
-                  <TableCell className="tabular">{r.checkIn ?? "—"}</TableCell>
-                  <TableCell className="tabular">{r.checkOut ?? "—"}</TableCell>
-                  <TableCell className="tabular">{r.hours}</TableCell>
+                  <TableCell className="text-muted-foreground whitespace-nowrap"><span dir="ltr">{r.date}</span></TableCell>
+                  <TableCell className="tabular"><span dir="ltr">{r.checkIn ?? "—"}</span></TableCell>
+                  <TableCell className="tabular"><span dir="ltr">{r.checkOut ?? "—"}</span></TableCell>
+                  <TableCell className="tabular"><span dir="ltr">{r.hours}</span></TableCell>
                   <TableCell><StatusBadge status={r.status} /></TableCell>
-                  <TableCell>{r.location}</TableCell>
+                  <TableCell>{t(r.location)}</TableCell>
                   <TableCell className="text-muted-foreground">{r.device}</TableCell>
                 </TableRow>
               ))}
@@ -563,22 +563,22 @@ function AttendancePage() {
           {selected ? (
             <>
               <SheetHeader>
-                <SheetTitle>Attendance Details</SheetTitle>
+                <SheetTitle>{t("Attendance Details")}</SheetTitle>
                 <SheetDescription>
-                  {selected.employee} · {selected.date}
+                  {selected.employee} · <span dir="ltr">{selected.date}</span>
                 </SheetDescription>
               </SheetHeader>
               <div className="space-y-4 px-4">
                 <div className="grid grid-cols-2 gap-3">
                   {[
-                    ["Check In", selected.checkIn ?? "—"],
-                    ["Check Out", selected.checkOut ?? "—"],
-                    ["Working Hours", selected.hours],
-                    ["Scheduled", selected.scheduled],
-                  ].map(([k, v]) => (
-                    <div key={k} className="rounded-xl border border-border p-3">
+                    [t("Check In"), <span key="ci" dir="ltr">{selected.checkIn ?? "—"}</span>],
+                    [t("Check Out"), <span key="co" dir="ltr">{selected.checkOut ?? "—"}</span>],
+                    [t("Working Hours"), <span key="wh" dir="ltr">{selected.hours}</span>],
+                    [t("Scheduled"), <span key="sch" dir="ltr">{selected.scheduled}</span>],
+                  ].map(([k, v], idx) => (
+                    <div key={idx} className="rounded-xl border border-border p-3">
                       <p className="text-xs text-muted-foreground">{k}</p>
-                      <p className="mt-0.5 text-sm font-medium tabular">{v}</p>
+                      <div className="mt-0.5 text-sm font-medium tabular">{v}</div>
                     </div>
                   ))}
                 </div>
@@ -589,12 +589,12 @@ function AttendancePage() {
                     <dd><StatusBadge status={selected.status} /></dd>
                   </div>
                   {[
-                    [t("Location"), selected.location],
-                    ["Device", selected.device],
-                    ["IP Address", "••••••••"],
-                    ["Source", selected.source],
+                    [t("Location"), t(selected.location)],
+                    [t("Device"), selected.device],
+                    [t("IP Address"), "••••••••"],
+                    [t("Source"), selected.source],
                   ].map(([k, v]) => (
-                    <div key={k} className="flex items-center justify-between">
+                    <div key={k as string} className="flex items-center justify-between">
                       <dt className="text-muted-foreground">{k}</dt>
                       <dd className="font-medium">{v}</dd>
                     </div>
@@ -602,19 +602,19 @@ function AttendancePage() {
                 </dl>
                 <Separator />
                 <div>
-                  <p className="mb-1.5 text-xs font-medium text-muted-foreground">Admin note</p>
-                  <Textarea rows={3} maxLength={500} placeholder="Add a note to this record..." />
+                  <p className="mb-1.5 text-xs font-medium text-muted-foreground">{t("Admin note")}</p>
+                  <Textarea rows={3} maxLength={500} placeholder={t("Add a note to this record...")} />
                 </div>
                 <div className="grid grid-cols-2 gap-2 pb-6">
-                  <Button onClick={() => toast.success("Record approved")}>Approve</Button>
+                  <Button onClick={() => toast.success("Record approved")}>{t("Approve")}</Button>
                   <Button variant="outline" onClick={() => toast.error("Record rejected")}>
-                    Reject
+                    {t("Reject")}
                   </Button>
                   <Button variant="outline" onClick={() => toast.info("Edit mode enabled")}>
-                    Edit Attendance
+                    {t("Edit Attendance")}
                   </Button>
                   <Button variant="ghost" onClick={() => toast.info("Activity log opened")}>
-                    Activity Log
+                    {t("Activity Log")}
                   </Button>
                 </div>
               </div>
@@ -733,12 +733,12 @@ function AttendancePage() {
               <Table>
                 <TableHeader className="bg-muted/60 sticky top-0 z-10">
                   <TableRow>
-                    <TableHead className="w-[120px]">Status</TableHead>
-                    <TableHead>Employee</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>In / Out</TableHead>
-                    <TableHead>Shift Status</TableHead>
-                    <TableHead>Note / Reason</TableHead>
+                    <TableHead className="w-[120px]">{t("Status")}</TableHead>
+                    <TableHead>{t("Employee")}</TableHead>
+                    <TableHead>{t("Date")}</TableHead>
+                    <TableHead>{t("In / Out")}</TableHead>
+                    <TableHead>{t("Shift Status")}</TableHead>
+                    <TableHead>{t("Note / Reason")}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
