@@ -41,7 +41,7 @@ function AdminProfilePage() {
             {[
               ["Full Name", "Mona Adel"],
               ["Email", "mona.adel@company.com"],
-              ["Phone", "+20 100 444 5566"],
+              ["Phone", "+20 100 741 9344"],
               ["Role", "HR Admin"],
             ].map(([label, value]) => (
               <div key={label}>

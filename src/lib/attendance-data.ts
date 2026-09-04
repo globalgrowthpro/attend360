@@ -112,7 +112,7 @@ export const employees: Employee[] = [
     active: true,
     today: "present",
     email: "mona.adel@company.com",
-    phone: "+20 100 444 5566",
+    phone: "+20 100 741 9344",
     shift: "Morning Shift",
     joined: "08 Feb 2020",
     manager: "—",
