@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/employees/new")({
   head: () => ({
@@ -79,6 +80,7 @@ function Field({
 
 function AddEmployeePage() {
   const navigate = useNavigate();
+  const { t } = useI18n();
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -89,65 +91,74 @@ function AddEmployeePage() {
       const next: Record<string, string> = {};
       for (const issue of parsed.error.issues) next[String(issue.path[0])] = issue.message;
       setErrors(next);
-      toast.error("Please fix the highlighted fields");
+      toast.error(t("Please fix the highlighted fields"));
       return;
     }
     setErrors({});
-    toast.success(`${parsed.data.name} saved`, { description: "Employee record created." });
+    toast.success(`${parsed.data.name} saved`, { description: t("Employee record created.") });
     navigate({ to: "/employees" });
   }
 
   return (
-    <AdminShell title="Add Employee" description="Create a new employee record and attendance profile">
+    <AdminShell
+      title={t("Add Employee")}
+      description={t("Create a new employee record and attendance profile")}
+    >
       <form onSubmit={onSubmit} className="space-y-4 pb-24">
-        <Section title="Personal Information" description="Identity and contact details.">
-          <Field label="Employee ID" error={errors["code"]}>
+        <Section
+          title={t("Personal Information")}
+          description={t("Identity and contact details.")}
+        >
+          <Field label={t("Employee ID")} error={errors["code"]}>
             <Input name="code" defaultValue="EMP009" />
           </Field>
-          <Field label="Full Name" error={errors["name"]}>
+          <Field label={t("Full Name")} error={errors["name"]}>
             <Input name="name" placeholder="e.g. Ahmed Rahim" />
           </Field>
-          <Field label="Profile Photo">
+          <Field label={t("Profile Photo")}>
             <Button type="button" variant="outline" className="w-full justify-start gap-2">
-              <Upload className="size-4" /> Upload photo
+              <Upload className="size-4" /> {t("Upload photo")}
             </Button>
           </Field>
-          <Field label="Gender">
+          <Field label={t("Gender")}>
             <Select defaultValue="male">
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="male">Male</SelectItem>
-                <SelectItem value="female">Female</SelectItem>
+                <SelectItem value="male">{t("Male")}</SelectItem>
+                <SelectItem value="female">{t("Female")}</SelectItem>
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Date of Birth">
+          <Field label={t("Date of Birth")}>
             <Input type="date" name="dob" />
           </Field>
-          <Field label="Phone" error={errors["phone"]}>
-            <Input name="phone" placeholder="+20 100 000 0000" />
+          <Field label={t("Phone")} error={errors["phone"]}>
+            <Input name="phone" placeholder="+20 100 000 0000" dir="ltr" className="text-start" />
           </Field>
-          <Field label="Email" error={errors["email"]}>
-            <Input name="email" type="email" placeholder="name@company.com" />
+          <Field label={t("Email")} error={errors["email"]}>
+            <Input name="email" type="email" placeholder="name@company.com" dir="ltr" className="text-start" />
           </Field>
-          <Field label="Address" full error={errors["address"]}>
+          <Field label={t("Address")} full error={errors["address"]}>
             <Textarea name="address" rows={2} maxLength={300} />
           </Field>
         </Section>
 
-        <Section title="Employment Information" description="Where this employee sits in the org.">
-          <Field label="Department">
+        <Section
+          title={t("Employment Information")}
+          description={t("Where this employee sits in the org.")}
+        >
+          <Field label={t("Department")}>
             <Select defaultValue="IT">
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
                 {["IT", "HR", "Finance", "Operations", "Marketing"].map((d) => (
-                  <SelectItem key={d} value={d}>{d}</SelectItem>
+                  <SelectItem key={d} value={d}>{t(d)}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Position"><Input name="position" placeholder="Software Developer" /></Field>
-          <Field label="Manager">
+          <Field label={t("Position")}><Input name="position" placeholder="Software Developer" /></Field>
+          <Field label={t("Manager")}>
             <Select defaultValue="khaled">
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
@@ -157,105 +168,113 @@ function AddEmployeePage() {
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Employment Type">
+          <Field label={t("Employment Type")}>
             <Select defaultValue="full">
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="full">Full-time</SelectItem>
-                <SelectItem value="part">Part-time</SelectItem>
-                <SelectItem value="contract">Contract</SelectItem>
-                <SelectItem value="intern">Intern</SelectItem>
+                <SelectItem value="full">{t("Full-time")}</SelectItem>
+                <SelectItem value="part">{t("Part-time")}</SelectItem>
+                <SelectItem value="contract">{t("Contract")}</SelectItem>
+                <SelectItem value="intern">{t("Intern")}</SelectItem>
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Joining Date"><Input type="date" name="joining" /></Field>
-          <Field label="Location">
+          <Field label={t("Joining Date")}><Input type="date" name="joining" /></Field>
+          <Field label={t("Location")}>
             <Select defaultValue="cairo">
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="cairo">Cairo HQ</SelectItem>
-                <SelectItem value="giza">Giza Office</SelectItem>
-                <SelectItem value="alex">Alexandria Office</SelectItem>
+                <SelectItem value="cairo">{t("Cairo HQ")}</SelectItem>
+                <SelectItem value="giza">{t("Giza Office")}</SelectItem>
+                <SelectItem value="alex">{t("Alexandria Office")}</SelectItem>
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Employee Status">
+          <Field label={t("Employee Status")}>
             <Select defaultValue="active">
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="active">Active</SelectItem>
-                <SelectItem value="probation">Probation</SelectItem>
-                <SelectItem value="inactive">Inactive</SelectItem>
+                <SelectItem value="active">{t("Active")}</SelectItem>
+                <SelectItem value="probation">{t("Probation")}</SelectItem>
+                <SelectItem value="inactive">{t("Inactive")}</SelectItem>
               </SelectContent>
             </Select>
           </Field>
         </Section>
 
-        <Section title="Attendance Configuration" description="Shift, expected hours and tolerances.">
-          <Field label="Shift">
+        <Section
+          title={t("Attendance Configuration")}
+          description={t("Shift, expected hours and tolerances.")}
+        >
+          <Field label={t("Shift")}>
             <Select defaultValue="morning">
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="morning">Morning Shift (09:00 – 17:00)</SelectItem>
-                <SelectItem value="evening">Evening Shift (14:00 – 22:00)</SelectItem>
-                <SelectItem value="night">Night Shift (22:00 – 06:00)</SelectItem>
-                <SelectItem value="flex">Flexible Shift</SelectItem>
+                <SelectItem value="morning">{t("Morning Shift (09:00 – 17:00)")}</SelectItem>
+                <SelectItem value="evening">{t("Evening Shift (14:00 – 22:00)")}</SelectItem>
+                <SelectItem value="night">{t("Night Shift (22:00 – 06:00)")}</SelectItem>
+                <SelectItem value="flex">{t("Flexible Shift")}</SelectItem>
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Working Days">
+          <Field label={t("Working Days")}>
             <Input defaultValue="Sun, Mon, Tue, Wed, Thu" />
           </Field>
-          <Field label="Expected Check-in"><Input type="time" defaultValue="09:00" /></Field>
-          <Field label="Expected Check-out"><Input type="time" defaultValue="17:00" /></Field>
-          <Field label="Grace Period (minutes)"><Input type="number" defaultValue={10} min={0} max={120} /></Field>
-          <Field label="Break Duration (minutes)"><Input type="number" defaultValue={60} min={0} max={240} /></Field>
+          <Field label={t("Expected Check-in")}><Input type="time" defaultValue="09:00" /></Field>
+          <Field label={t("Expected Check-out")}><Input type="time" defaultValue="17:00" /></Field>
+          <Field label={t("Grace Period (minutes)")}><Input type="number" defaultValue={10} min={0} max={120} /></Field>
+          <Field label={t("Break Duration (minutes)")}><Input type="number" defaultValue={60} min={0} max={240} /></Field>
           <div className="flex items-center justify-between rounded-xl border border-border p-3 sm:col-span-2">
             <div>
-              <p className="text-sm font-medium">Overtime Eligibility</p>
-              <p className="text-xs text-muted-foreground">Count approved hours beyond shift end as overtime.</p>
+              <p className="text-sm font-medium">{t("Overtime Eligibility")}</p>
+              <p className="text-xs text-muted-foreground">{t("Count approved hours beyond shift end as overtime.")}</p>
             </div>
             <Switch defaultChecked />
           </div>
         </Section>
 
-        <Section title="Account" description="Portal access for self-service check-in.">
-          <Field label="Username / Email"><Input name="username" placeholder="name@company.com" /></Field>
-          <Field label="Role">
+        <Section
+          title={t("Account")}
+          description={t("Portal access for self-service check-in.")}
+        >
+          <Field label={t("Username / Email")}>
+            <Input name="username" placeholder="name@company.com" dir="ltr" className="text-start" />
+          </Field>
+          <Field label={t("Role")}>
             <Select defaultValue="employee">
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="super">Super Admin</SelectItem>
-                <SelectItem value="hr">HR Admin</SelectItem>
-                <SelectItem value="manager">Manager</SelectItem>
-                <SelectItem value="employee">Employee</SelectItem>
+                <SelectItem value="super">{t("Super Admin")}</SelectItem>
+                <SelectItem value="hr">{t("HR Admin")}</SelectItem>
+                <SelectItem value="manager">{t("Manager")}</SelectItem>
+                <SelectItem value="employee">{t("Employee")}</SelectItem>
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Access">
+          <Field label={t("Access")}>
             <Select defaultValue="invite">
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="invite">Send invitation email</SelectItem>
-                <SelectItem value="password">Set temporary password</SelectItem>
+                <SelectItem value="invite">{t("Send invitation email")}</SelectItem>
+                <SelectItem value="password">{t("Set temporary password")}</SelectItem>
               </SelectContent>
             </Select>
           </Field>
           <div className="flex items-center justify-between rounded-xl border border-border p-3">
             <div>
-              <p className="text-sm font-medium">Account Active</p>
-              <p className="text-xs text-muted-foreground">Allow sign-in immediately.</p>
+              <p className="text-sm font-medium">{t("Account Active")}</p>
+              <p className="text-xs text-muted-foreground">{t("Allow sign-in immediately.")}</p>
             </div>
             <Switch defaultChecked />
           </div>
         </Section>
 
-        <div className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-card/95 px-4 py-3 backdrop-blur lg:pl-64">
+        <div className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-card/95 px-4 py-3 backdrop-blur lg:ps-64">
           <div className="flex justify-end gap-2">
             <Button asChild type="button" variant="outline">
-              <Link to="/employees">Cancel</Link>
+              <Link to="/employees">{t("Cancel")}</Link>
             </Button>
-            <Button type="submit">Save Employee</Button>
+            <Button type="submit">{t("Save Employee")}</Button>
           </div>
         </div>
       </form>
