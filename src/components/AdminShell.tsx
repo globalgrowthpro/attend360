@@ -8,6 +8,8 @@ import {
   Menu,
   PanelLeftClose,
   PanelLeftOpen,
+  PanelRightClose,
+  PanelRightOpen,
   Settings,
   SquareCheckBig,
   User,
@@ -142,36 +144,38 @@ export function AdminShell({
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Desktop Collapsible Sidebar (w-56 expanded, w-16 collapsed) */}
+      {/* Desktop Collapsible Sidebar (w-64 expanded, w-16 collapsed) */}
       <aside
         className={cn(
-          "fixed inset-y-0 start-0 z-30 hidden flex-col border-e border-sidebar-border bg-sidebar transition-[width] duration-300 ease-in-out lg:flex",
-          collapsed ? "w-16" : "w-56",
+          "fixed inset-y-0 start-0 z-30 hidden flex-col border-e border-sidebar-border bg-sidebar transition-[width] duration-300 ease-in-out lg:flex overflow-hidden",
+          collapsed ? "w-16" : "w-64",
         )}
       >
         {/* Sidebar Header with Logos & Toggle Button */}
         <div
           className={cn(
-            "flex items-center border-b border-sidebar-border/60 py-3.5",
-            collapsed ? "flex-col gap-2 px-2 justify-center" : "justify-between px-3.5",
+            "flex items-center border-b border-sidebar-border/60 py-3.5 transition-all",
+            collapsed
+              ? "flex-col gap-2 px-2 justify-center"
+              : "justify-between gap-3 px-4",
           )}
         >
           <Link
             to="/"
-            className="flex items-center overflow-hidden transition-transform hover:opacity-90"
+            className="flex min-w-0 items-center transition-transform hover:opacity-90"
             title="Attend360"
           >
             {collapsed ? (
               <img
                 src="/apple-touch-icon.png"
                 alt="Attend360"
-                className="size-10 rounded-xl object-contain shadow-xs"
+                className="size-9 rounded-xl object-contain shadow-xs shrink-0"
               />
             ) : (
               <img
                 src="/360-weblogo.png"
                 alt="Attend360"
-                className="h-12 md:h-14 w-auto max-w-[185px] object-contain"
+                className="h-10 sm:h-11 w-auto max-w-[150px] object-contain shrink-0"
               />
             )}
           </Link>
@@ -181,18 +185,18 @@ export function AdminShell({
             variant="ghost"
             size="icon"
             onClick={toggleCollapsed}
-            className="size-7 rounded-lg text-muted-foreground hover:bg-sidebar-accent hover:text-foreground shrink-0"
+            className="size-8 shrink-0 rounded-lg text-muted-foreground hover:bg-sidebar-accent hover:text-foreground"
             title={collapsed ? t("Expand sidebar") : t("Collapse sidebar")}
             aria-label={collapsed ? t("Expand sidebar") : t("Collapse sidebar")}
           >
             {collapsed ? (
               dir === "rtl" ? (
-                <PanelLeftClose className="size-4 rotate-180" />
+                <PanelRightOpen className="size-4" />
               ) : (
                 <PanelLeftOpen className="size-4" />
               )
             ) : dir === "rtl" ? (
-              <PanelLeftOpen className="size-4 rotate-180" />
+              <PanelRightClose className="size-4" />
             ) : (
               <PanelLeftClose className="size-4" />
             )}
@@ -200,7 +204,7 @@ export function AdminShell({
         </div>
 
         {/* Navigation List */}
-        <div className="flex-1 overflow-y-auto py-3">
+        <div className="flex-1 overflow-y-auto py-3 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           <NavList collapsed={collapsed} />
         </div>
 
@@ -214,7 +218,7 @@ export function AdminShell({
       <div
         className={cn(
           "transition-[padding] duration-300 ease-in-out",
-          collapsed ? "lg:ps-16" : "lg:ps-56",
+          collapsed ? "lg:ps-16" : "lg:ps-64",
         )}
       >
         <header className="sticky top-0 z-20 border-b border-border bg-card/85 backdrop-blur">

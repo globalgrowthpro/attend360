@@ -84,12 +84,15 @@ function normalizeDate(d: string): string {
 
   // Handle dd-mm-yyyy or yyyy-mm-dd
   const parts = cleaned.split(/[-/]/);
-  if (parts.length === 3) {
-    if (parts[0].length === 4) {
-      return `${parts[0]}-${parts[1].padStart(2, "0")}-${parts[2].padStart(2, "0")}`;
+  const p0 = parts[0];
+  const p1 = parts[1];
+  const p2 = parts[2];
+  if (p0 && p1 && p2) {
+    if (p0.length === 4) {
+      return `${p0}-${p1.padStart(2, "0")}-${p2.padStart(2, "0")}`;
     }
-    if (parts[2].length === 4) {
-      return `${parts[2]}-${parts[1].padStart(2, "0")}-${parts[0].padStart(2, "0")}`;
+    if (p2.length === 4) {
+      return `${p2}-${p1.padStart(2, "0")}-${p0.padStart(2, "0")}`;
     }
   }
 
@@ -294,7 +297,9 @@ function AttendancePage() {
 
       const rows: Omit<AttendanceRecord, "id">[] = [];
       for (let i = 1; i < lines.length; i++) {
-        const cols = lines[i].split(",").map((c) => c.trim().replace(/^["']|["']$/g, ""));
+        const line = lines[i];
+        if (!line) continue;
+        const cols = line.split(",").map((c) => c.trim().replace(/^["']|["']$/g, ""));
         if (cols.length >= 3 && cols[0]) {
           const [
             employee = "",
