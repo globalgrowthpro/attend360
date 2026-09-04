@@ -7,6 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
+import { DirectionProvider } from "@radix-ui/react-direction";
 
 export type Lang = "en" | "ar";
 
@@ -290,7 +291,7 @@ const ar: Record<string, string> = {
   Male: "ذكر",
   Female: "أنثى",
   "Date of Birth": "تاريخ الميلاد",
-  "National ID / Passport Number": "رقم الهوية الوطنية / جواز السفر",
+  "National ID / Passport Number": "رقم القومي / جواز السفر",
   "National ID / Passport": "الهوية الوطنية / جواز السفر",
   "Expiry Date": "تاريخ الانتهاء",
   "Expire Date": "تاريخ الانتهاء",
@@ -410,7 +411,13 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     [lang, setLang, toggleLang, t],
   );
 
-  return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
+  return (
+    <I18nContext.Provider value={value}>
+      <DirectionProvider dir={value.dir}>
+        {children}
+      </DirectionProvider>
+    </I18nContext.Provider>
+  );
 }
 
 export function useI18n(): Ctx {
@@ -420,8 +427,8 @@ export function useI18n(): Ctx {
   return {
     lang: "en",
     dir: "ltr",
-    setLang: () => {},
-    toggleLang: () => {},
+    setLang: () => { },
+    toggleLang: () => { },
     t: (text: string) => text,
   };
 }

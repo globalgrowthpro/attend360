@@ -143,7 +143,7 @@ export function AdminShell({
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background" dir={dir}>
       {/* Desktop Collapsible Sidebar (w-64 expanded, w-16 collapsed) */}
       <aside
         className={cn(

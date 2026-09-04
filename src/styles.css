@@ -172,7 +172,15 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Arabic / RTL typography */
+/* Arabic / RTL typography & layout */
+[dir="rtl"] {
+  direction: rtl;
+}
+
+[dir="ltr"] {
+  direction: ltr;
+}
+
 [dir="rtl"] body,
 [dir="rtl"] input,
 [dir="rtl"] button,
