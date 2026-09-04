@@ -88,7 +88,10 @@ function LogoutButton({ onNavigate }: { onNavigate?: () => void }) {
 function Brand({ mode = "web" }: { mode?: "web" | "mobile" }) {
   return (
     <div className="px-5 py-5">
-      <BrandLogo mode={mode} className="h-8 w-auto" />
+      <BrandLogo
+        mode={mode}
+        className={mode === "web" ? "h-11 sm:h-12 w-auto max-w-[210px]" : "h-9 w-auto"}
+      />
     </div>
   );
 }

@@ -180,46 +180,41 @@ function LoginPage() {
                       </Button>
                     </div>
                   </div>
-
-                  {/* Developer Credit Footer */}
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-t border-white/15 pt-3 text-xs text-white/80">
-                    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-                      <span className="font-medium text-white/90">
-                        {t("Developer")}: <span className="font-semibold text-white">Mr. Hafez Rahim</span>
-                      </span>
-                      <span className="hidden text-white/30 sm:inline">•</span>
-                      <a
-                        href="https://odooteams.com"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 rounded-md bg-white/10 px-2 py-0.5 font-medium text-white transition-colors hover:bg-white/20 hover:text-white"
-                      >
-                        <Globe className="size-3.5 text-primary-soft" />
-                        <span>Odooteams.com</span>
-                        <ExternalLink className="size-3 opacity-60" />
-                      </a>
-                      <span className="hidden text-white/30 sm:inline">•</span>
-                      <a
-                        href="tel:+201007419344"
-                        className="inline-flex items-center gap-1 text-white/90 transition-colors hover:text-white hover:underline"
-                        title="Contact +201007419344"
-                      >
-                        <Phone className="size-3 text-emerald-400" />
-                        <span dir="ltr" className="font-medium">+201007419344</span>
-                      </a>
-                    </div>
-                    <span className="font-mono text-[11px] opacity-60">v1.0</span>
-                  </div>
                 </div>
               </CarouselItem>
             ))}
           </CarouselContent>
         </Carousel>
 
-        {/* Floating Brand Logo at Top Left over the slider */}
-        <div className="pointer-events-none absolute start-8 top-8 z-20 xl:start-12 xl:top-10">
-          <div className="pointer-events-auto rounded-2xl border border-white/15 bg-black/40 px-4 py-2.5 shadow-lg backdrop-blur-md">
-            <BrandLogo mode="web" className="h-8 md:h-9 w-auto" />
+        {/* Sticky Developer Credit Footer (Fixed, does not move with slides) */}
+        <div className="absolute inset-x-0 bottom-0 z-20 border-t border-white/15 bg-slate-950/80 px-8 py-3.5 backdrop-blur-md xl:px-12">
+          <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-white/80">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              <span className="font-medium text-white/90">
+                {t("Developer")}: <span className="font-semibold text-white">Mr. Hafez Rahim</span>
+              </span>
+              <span className="hidden text-white/30 sm:inline">•</span>
+              <a
+                href="https://odooteams.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-md bg-white/10 px-2 py-0.5 font-medium text-white transition-colors hover:bg-white/20 hover:text-white"
+              >
+                <Globe className="size-3.5 text-primary-soft" />
+                <span>Odooteams.com</span>
+                <ExternalLink className="size-3 opacity-60" />
+              </a>
+              <span className="hidden text-white/30 sm:inline">•</span>
+              <a
+                href="tel:+201007419344"
+                className="inline-flex items-center gap-1 text-white/90 transition-colors hover:text-white hover:underline"
+                title="Contact +201007419344"
+              >
+                <Phone className="size-3 text-emerald-400" />
+                <span dir="ltr" className="font-medium">+201007419344</span>
+              </a>
+            </div>
+            <span className="font-mono text-[11px] opacity-60">v1.0</span>
           </div>
         </div>
       </div>
@@ -228,9 +223,9 @@ function LoginPage() {
       <div className="flex h-screen max-h-screen items-center justify-center overflow-y-auto p-6 lg:col-span-5 xl:col-span-5 2xl:col-span-4">
         <Card className="w-full max-w-sm border-border shadow-card">
           <CardContent className="space-y-5 p-6 sm:p-7">
-            {/* Mobile Header Logo */}
-            <div className="flex justify-center pb-1 lg:hidden">
-              <BrandLogo mode="mobile" className="h-10 w-auto" />
+            {/* Brand Logo Above Sign In */}
+            <div className="mb-1">
+              <BrandLogo mode="web" className="h-10 sm:h-11 w-auto max-w-[200px]" />
             </div>
 
             <div>
