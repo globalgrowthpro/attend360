@@ -171,3 +171,12 @@
 @utility tabular {
   font-variant-numeric: tabular-nums;
 }
+
+/* Arabic / RTL typography */
+[dir="rtl"] body,
+[dir="rtl"] input,
+[dir="rtl"] button,
+[dir="rtl"] select,
+[dir="rtl"] textarea {
+  font-family: "Cairo", ui-sans-serif, system-ui, sans-serif;
+}
