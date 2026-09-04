@@ -115,10 +115,11 @@ function AddEmployeePage() {
           <Field label={t("Full Name")} error={errors["name"]}>
             <Input name="name" placeholder="e.g. Ahmed Rahim" />
           </Field>
-          <Field label={t("Profile Photo")}>
-            <Button type="button" variant="outline" className="w-full justify-start gap-2">
-              <Upload className="size-4" /> {t("Upload photo")}
-            </Button>
+          <Field label={t("National ID / Passport Number")}>
+            <Input name="nationalId" placeholder="e.g. 29408150102345 / A12345678" dir="ltr" className="text-start font-mono" />
+          </Field>
+          <Field label={t("Expiry Date")}>
+            <Input type="date" name="nationalIdExpiry" />
           </Field>
           <Field label={t("Gender")}>
             <Select defaultValue="male">
@@ -138,11 +139,10 @@ function AddEmployeePage() {
           <Field label={t("Email")} error={errors["email"]}>
             <Input name="email" type="email" placeholder="name@company.com" dir="ltr" className="text-start" />
           </Field>
-          <Field label={t("National ID / Passport Number")}>
-            <Input name="nationalId" placeholder="e.g. 29408150102345 / A12345678" dir="ltr" className="text-start font-mono" />
-          </Field>
-          <Field label={t("Expiry Date")}>
-            <Input type="date" name="nationalIdExpiry" />
+          <Field label={t("Profile Photo")} full>
+            <Button type="button" variant="outline" className="w-full justify-start gap-2">
+              <Upload className="size-4" /> {t("Upload photo")}
+            </Button>
           </Field>
           <Field label={t("Address")} full error={errors["address"]}>
             <Textarea name="address" rows={2} maxLength={300} />
