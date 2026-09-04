@@ -6,14 +6,15 @@ import {
   LayoutDashboard,
   LogOut,
   Menu,
-Settings,
+  PanelLeftClose,
+  PanelLeftOpen,
+  Settings,
   SquareCheckBig,
   User,
   Users,
 } from "lucide-react";
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
-import { BrandLogo } from "@/components/BrandLogo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -31,11 +32,18 @@ const nav = [
   { to: "/notifications", label: "Notifications", icon: Bell },
 ] as const;
 
-function NavList({ onNavigate }: { onNavigate?: () => void }) {
+function NavList({
+  collapsed = false,
+  onNavigate,
+}: {
+  collapsed?: boolean;
+  onNavigate?: () => void;
+}) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const { t } = useI18n();
+
   return (
-    <nav className="flex flex-1 flex-col gap-1 px-3">
+    <nav className={cn("flex flex-1 flex-col gap-1", collapsed ? "px-2" : "px-3")}>
       {nav.map((item) => {
         const active = item.to === "/" ? pathname === "/" : pathname.startsWith(item.to);
         return (
@@ -43,56 +51,63 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
             key={item.to}
             to={item.to}
             onClick={onNavigate}
+            title={collapsed ? t(item.label) : undefined}
             className={cn(
-              "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+              "flex items-center rounded-lg text-sm font-medium transition-colors",
+              collapsed ? "justify-center p-2.5" : "gap-3 px-3 py-2",
               active
                 ? "bg-sidebar-accent text-sidebar-accent-foreground"
                 : "text-muted-foreground hover:bg-sidebar-accent/60 hover:text-sidebar-foreground",
             )}
           >
-            <item.icon className="size-4" />
-            {t(item.label)}
+            <item.icon className="size-4 shrink-0" />
+            {!collapsed && <span className="truncate">{t(item.label)}</span>}
           </Link>
         );
       })}
-      <Separator className="my-3" />
+      <Separator className={cn("my-2.5", collapsed && "mx-1")} />
       <Link
         to="/profile"
         onClick={onNavigate}
-        className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-foreground"
+        title={collapsed ? t("My Profile") : undefined}
+        className={cn(
+          "flex items-center rounded-lg text-sm font-medium text-muted-foreground transition-colors hover:bg-sidebar-accent/60 hover:text-sidebar-foreground",
+          collapsed ? "justify-center p-2.5" : "gap-3 px-3 py-2",
+        )}
       >
-        <User className="size-4" />
-        {t("My Profile")}
+        <User className="size-4 shrink-0" />
+        {!collapsed && <span className="truncate">{t("My Profile")}</span>}
       </Link>
     </nav>
   );
 }
 
-function LogoutButton({ onNavigate }: { onNavigate?: () => void }) {
+function LogoutButton({
+  collapsed = false,
+  onNavigate,
+}: {
+  collapsed?: boolean;
+  onNavigate?: () => void;
+}) {
   const { t } = useI18n();
   return (
     <Button
       asChild
       variant="outline"
-      className="w-full justify-start gap-3 rounded-xl border-border/80 bg-sidebar-accent/30 text-sm font-medium text-muted-foreground transition-colors hover:border-destructive/30 hover:bg-destructive/10 hover:text-destructive"
+      title={collapsed ? t("Logout") : undefined}
+      className={cn(
+        "rounded-xl border-border/80 bg-sidebar-accent/30 text-sm font-medium text-muted-foreground transition-colors hover:border-destructive/30 hover:bg-destructive/10 hover:text-destructive",
+        collapsed
+          ? "size-10 p-0 mx-auto flex items-center justify-center"
+          : "w-full justify-start gap-3 px-3 py-2.5",
+      )}
       onClick={onNavigate}
     >
       <Link to="/login">
-        <LogOut className="size-4" />
-        <span>{t("Logout")}</span>
+        <LogOut className="size-4 shrink-0" />
+        {!collapsed && <span>{t("Logout")}</span>}
       </Link>
     </Button>
-  );
-}
-
-function Brand({ mode = "web" }: { mode?: "web" | "mobile" }) {
-  return (
-    <div className="px-5 py-5">
-      <BrandLogo
-        mode={mode}
-        className={mode === "web" ? "h-11 sm:h-12 w-auto max-w-[210px]" : "h-9 w-auto"}
-      />
-    </div>
   );
 }
 
@@ -108,19 +123,103 @@ export function AdminShell({
   children: ReactNode;
 }) {
   const { t, dir } = useI18n();
+  const [collapsed, setCollapsed] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("attend360.sidebar.collapsed") === "true";
+    }
+    return false;
+  });
+
+  const toggleCollapsed = () => {
+    setCollapsed((prev) => {
+      const next = !prev;
+      if (typeof window !== "undefined") {
+        localStorage.setItem("attend360.sidebar.collapsed", String(next));
+      }
+      return next;
+    });
+  };
+
   return (
     <div className="min-h-screen bg-background">
-      <aside className="fixed inset-y-0 start-0 z-30 hidden w-64 flex-col border-e border-sidebar-border bg-sidebar lg:flex">
-        <Brand mode="web" />
-        <NavList />
-        <div className="p-4">
-          <LogoutButton />
+      {/* Desktop Collapsible Sidebar (w-56 expanded, w-16 collapsed) */}
+      <aside
+        className={cn(
+          "fixed inset-y-0 start-0 z-30 hidden flex-col border-e border-sidebar-border bg-sidebar transition-[width] duration-300 ease-in-out lg:flex",
+          collapsed ? "w-16" : "w-56",
+        )}
+      >
+        {/* Sidebar Header with Logos & Toggle Button */}
+        <div
+          className={cn(
+            "flex items-center border-b border-sidebar-border/60 py-3.5",
+            collapsed ? "flex-col gap-2 px-2 justify-center" : "justify-between px-3.5",
+          )}
+        >
+          <Link
+            to="/"
+            className="flex items-center overflow-hidden transition-transform hover:opacity-90"
+            title="Attend360"
+          >
+            {collapsed ? (
+              <img
+                src="/apple-touch-icon.png"
+                alt="Attend360"
+                className="size-8 rounded-lg object-contain shadow-xs"
+              />
+            ) : (
+              <img
+                src="/360-weblogo.png"
+                alt="Attend360"
+                className="h-8 w-auto max-w-[145px] object-contain"
+              />
+            )}
+          </Link>
+
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            onClick={toggleCollapsed}
+            className="size-7 rounded-lg text-muted-foreground hover:bg-sidebar-accent hover:text-foreground shrink-0"
+            title={collapsed ? t("Expand sidebar") : t("Collapse sidebar")}
+            aria-label={collapsed ? t("Expand sidebar") : t("Collapse sidebar")}
+          >
+            {collapsed ? (
+              dir === "rtl" ? (
+                <PanelLeftClose className="size-4 rotate-180" />
+              ) : (
+                <PanelLeftOpen className="size-4" />
+              )
+            ) : dir === "rtl" ? (
+              <PanelLeftOpen className="size-4 rotate-180" />
+            ) : (
+              <PanelLeftClose className="size-4" />
+            )}
+          </Button>
+        </div>
+
+        {/* Navigation List */}
+        <div className="flex-1 overflow-y-auto py-3">
+          <NavList collapsed={collapsed} />
+        </div>
+
+        {/* Bottom Logout Area */}
+        <div className={cn("border-t border-sidebar-border/60", collapsed ? "p-2 text-center" : "p-3")}>
+          <LogoutButton collapsed={collapsed} />
         </div>
       </aside>
 
-      <div className="lg:ps-64">
+      {/* Main Content Area (tracks sidebar width) */}
+      <div
+        className={cn(
+          "transition-[padding] duration-300 ease-in-out",
+          collapsed ? "lg:ps-16" : "lg:ps-56",
+        )}
+      >
         <header className="sticky top-0 z-20 border-b border-border bg-card/85 backdrop-blur">
           <div className="flex items-center gap-3 px-4 py-3 sm:px-6">
+            {/* Mobile Sheet Trigger */}
             <Sheet>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="lg:hidden" aria-label={t("Open menu")}>
@@ -129,17 +228,47 @@ export function AdminShell({
               </SheetTrigger>
               <SheetContent
                 side={dir === "rtl" ? "right" : "left"}
-                className="flex w-64 flex-col justify-between bg-sidebar p-0"
+                className="flex w-60 flex-col justify-between bg-sidebar p-0"
               >
                 <div className="flex flex-1 flex-col overflow-y-auto">
-                  <Brand mode="mobile" />
-                  <NavList />
+                  <div className="border-b border-sidebar-border/60 px-5 py-4">
+                    <img
+                      src="/360-weblogo.png"
+                      alt="Attend360"
+                      className="h-8 w-auto max-w-[160px] object-contain"
+                    />
+                  </div>
+                  <div className="py-3">
+                    <NavList />
+                  </div>
                 </div>
-                <div className="p-4">
+                <div className="border-t border-sidebar-border/60 p-3">
                   <LogoutButton />
                 </div>
               </SheetContent>
             </Sheet>
+
+            {/* Desktop Topbar Collapse Button */}
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              onClick={toggleCollapsed}
+              className="hidden lg:flex size-8 text-muted-foreground hover:bg-accent hover:text-foreground"
+              title={collapsed ? t("Expand sidebar") : t("Collapse sidebar")}
+            >
+              {collapsed ? (
+                dir === "rtl" ? (
+                  <PanelLeftClose className="size-4 rotate-180" />
+                ) : (
+                  <PanelLeftOpen className="size-4" />
+                )
+              ) : dir === "rtl" ? (
+                <PanelLeftOpen className="size-4 rotate-180" />
+              ) : (
+                <PanelLeftClose className="size-4" />
+              )}
+            </Button>
 
             <div className="min-w-0 flex-1">
               <h1 className="truncate text-lg font-semibold tracking-tight">{t(title)}</h1>

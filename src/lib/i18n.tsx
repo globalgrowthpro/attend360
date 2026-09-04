@@ -35,6 +35,8 @@ const ar: Record<string, string> = {
   Profile: "الملف الشخصي",
   Admin: "المسؤول",
   "Open menu": "فتح القائمة",
+  "Expand sidebar": "توسيع الشريط الجانبي",
+  "Collapse sidebar": "طي الشريط الجانبي",
   "My profile": "ملفي الشخصي",
   Language: "اللغة",
   "Switch language": "تغيير اللغة",
