@@ -110,10 +110,10 @@ export function AdminShell({
   actions?: ReactNode;
   children: ReactNode;
 }) {
-  const { t } = useI18n();
+  const { t, dir } = useI18n();
   return (
     <div className="min-h-screen bg-background">
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r border-sidebar-border bg-sidebar lg:flex">
+      <aside className="fixed inset-y-0 start-0 z-30 hidden w-64 flex-col border-e border-sidebar-border bg-sidebar lg:flex">
         <Brand />
         <NavList />
         <div className="p-4">
@@ -124,7 +124,7 @@ export function AdminShell({
         </div>
       </aside>
 
-      <div className="lg:pl-64">
+      <div className="lg:ps-64">
         <header className="sticky top-0 z-20 border-b border-border bg-card/85 backdrop-blur">
           <div className="flex items-center gap-3 px-4 py-3 sm:px-6">
             <Sheet>
@@ -133,7 +133,7 @@ export function AdminShell({
                   <Menu className="size-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-64 bg-sidebar p-0">
+              <SheetContent side={dir === "rtl" ? "right" : "left"} className="w-64 bg-sidebar p-0">
                 <Brand />
                 <NavList />
               </SheetContent>
@@ -152,12 +152,12 @@ export function AdminShell({
               <Button asChild variant="ghost" size="icon" aria-label={t("Notifications")}>
                 <Link to="/notifications" className="relative">
                   <Bell className="size-5" />
-                  <span className="absolute right-2 top-2 size-2 rounded-full bg-danger" />
+                  <span className="absolute end-2 top-2 size-2 rounded-full bg-danger" />
                 </Link>
               </Button>
               <Link
                 to="/profile"
-                className="flex items-center gap-2 rounded-full border border-border py-1 pl-1 pr-3 text-sm hover:bg-accent"
+                className="flex items-center gap-2 rounded-full border border-border py-1 ps-1 pe-3 text-sm hover:bg-accent"
               >
                 <span className="grid size-7 place-items-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
                   HR
