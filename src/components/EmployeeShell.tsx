@@ -25,37 +25,45 @@ export function EmployeeShell({
 }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
   const avatar = useAvatarUrl();
-  const { t } = useI18n();
+  const { t, dir } = useI18n();
 
   return (
-    <div className="min-h-screen bg-background pb-20 md:pb-0">
-      <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-card/95 px-4 py-3 backdrop-blur md:hidden">
-        <BrandLogo mode="mobile" className="h-7 w-auto" />
-        <div className="flex items-center gap-2">
-          <LanguageSwitcher />
-          <Link to="/employee/profile" aria-label={t("My profile")}>
-            {avatar ? (
-              <img
-                src={avatar}
-                alt="Ahmed Ali"
-                className="size-9 rounded-full object-cover"
-              />
-            ) : (
-              <span className="grid size-9 place-items-center rounded-full bg-primary-soft text-xs font-semibold text-primary">
-                AA
-              </span>
-            )}
+    <div className="min-h-screen bg-background pb-20 md:pb-0" dir={dir}>
+      <header className="sticky top-0 z-30 border-b border-border bg-card/95 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+          <Link to="/employee" className="flex items-center gap-2.5 hover:opacity-90">
+            <BrandLogo mode="auto" className="h-7 w-auto" />
+            <span className="hidden rounded-md bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary sm:inline-block">
+              {t("Self service")}
+            </span>
           </Link>
+          <div className="flex items-center gap-3">
+            <LanguageSwitcher />
+            <Link
+              to="/employee/profile"
+              aria-label={t("My profile")}
+              className="flex items-center gap-2 rounded-full border border-border p-1 pe-3 text-xs font-medium transition-colors hover:bg-accent"
+            >
+              {avatar ? (
+                <img
+                  src={avatar}
+                  alt="Ahmed Ali"
+                  className="size-7 rounded-full object-cover"
+                />
+              ) : (
+                <span className="grid size-7 place-items-center rounded-full bg-primary-soft text-xs font-semibold text-primary">
+                  AA
+                </span>
+              )}
+              <span className="hidden sm:inline">Ahmed Ali</span>
+            </Link>
+          </div>
         </div>
       </header>
 
       <div className="mx-auto flex max-w-6xl gap-6 px-4 py-5 sm:px-6">
         <aside className="hidden w-56 shrink-0 md:block">
-          <div className="sticky top-6 rounded-2xl border border-border bg-card p-3 shadow-card">
-            <div className="px-2 py-3">
-              <BrandLogo mode="web" className="h-7 w-auto" />
-              <LanguageSwitcher className="mt-3 w-fit" />
-            </div>
+          <div className="sticky top-20 rounded-2xl border border-border bg-card p-3 shadow-card">
             <nav className="mt-2 flex flex-col gap-1">
               {nav.map((item) => {
                 const active =
