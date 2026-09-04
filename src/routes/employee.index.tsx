@@ -157,7 +157,7 @@ function EmployeeHome() {
               {[["Present", "19"], ["Late", "2"], ["Absent", "1"], ["Leave", "1"]].map(([k, v]) => (
                 <div key={k}>
                   <p className="text-lg font-semibold tabular">{v}</p>
-                  <p className="text-xs text-muted-foreground">{t(k)}</p>
+                  <p className="text-xs text-muted-foreground">{t(k as string)}</p>
                 </div>
               ))}
             </div>
