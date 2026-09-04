@@ -165,13 +165,13 @@ export function AdminShell({
               <img
                 src="/apple-touch-icon.png"
                 alt="Attend360"
-                className="size-8 rounded-lg object-contain shadow-xs"
+                className="size-10 rounded-xl object-contain shadow-xs"
               />
             ) : (
               <img
                 src="/360-weblogo.png"
                 alt="Attend360"
-                className="h-8 w-auto max-w-[145px] object-contain"
+                className="h-12 md:h-14 w-auto max-w-[185px] object-contain"
               />
             )}
           </Link>
@@ -235,7 +235,7 @@ export function AdminShell({
                     <img
                       src="/360-weblogo.png"
                       alt="Attend360"
-                      className="h-8 w-auto max-w-[160px] object-contain"
+                      className="h-11 sm:h-12 w-auto max-w-[185px] object-contain"
                     />
                   </div>
                   <div className="py-3">

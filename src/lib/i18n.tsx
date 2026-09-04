@@ -63,6 +63,14 @@ const ar: Record<string, string> = {
   "Streamlined Correction Requests": "إدارة مبسطة لطلبات تصحيح الحضور",
   "Empower employees to request adjustments and give managers instant approval workflows.":
     "تمكين الموظفين من تقديم طلبات التعديل ومنح المديرين سير موافقة فوري.",
+  Import: "استيراد",
+  Filters: "تصفية",
+  "Import Attendance Records": "استيراد سجلات الحضور",
+  "Download CSV Template": "تحميل نموذج CSV",
+  "Load Ready-Made Template": "تحميل نموذج جاهز",
+  "Duplicate - Skipped": "مكرر - تم تخطيه",
+  "Import Valid Records": "استيراد السجلات الصالحة",
+  "Duplicate records on the same day are rejected": "يتم رفض السجلات المكررة في نفس اليوم",
   "Comprehensive Analytics & Reports": "تحليلات وتقارير حضور شاملة",
   "Export payroll-ready attendance data and visualize monthly trends at a glance.":
     "تصدير بيانات حضور جاهزة لمسيرات الرواتب واستعراض مؤشرات الحضور الشهرية بلمحة.",
