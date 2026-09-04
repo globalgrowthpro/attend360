@@ -1,9 +1,22 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { LogOut } from "lucide-react";
+import { Camera, KeyRound, LogOut } from "lucide-react";
+import { useRef, useState } from "react";
+import { toast } from "sonner";
 
 import { EmployeeShell } from "@/components/EmployeeShell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 
 export const Route = createFileRoute("/employee/profile")({
@@ -23,13 +36,76 @@ export const Route = createFileRoute("/employee/profile")({
 });
 
 function EmployeeProfile() {
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [avatar, setAvatar] = useState<string | null>(null);
+  const [pwOpen, setPwOpen] = useState(false);
+  const [pw, setPw] = useState({ current: "", next: "", confirm: "" });
+
+  function onPickAvatar(file?: File | null) {
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please choose an image file");
+      return;
+    }
+    if (file.size > 3 * 1024 * 1024) {
+      toast.error("Image must be smaller than 3 MB");
+      return;
+    }
+    setAvatar(URL.createObjectURL(file));
+    toast.success("Profile photo updated");
+  }
+
+  function submitPassword(e: React.FormEvent) {
+    e.preventDefault();
+    if (!pw.current || !pw.next) {
+      toast.error("Fill in both password fields");
+      return;
+    }
+    if (pw.next.length < 8) {
+      toast.error("New password must be at least 8 characters");
+      return;
+    }
+    if (pw.next !== pw.confirm) {
+      toast.error("New passwords do not match");
+      return;
+    }
+    setPw({ current: "", next: "", confirm: "" });
+    setPwOpen(false);
+    toast.success("Password changed");
+  }
+
   return (
     <EmployeeShell title="My profile">
       <div className="space-y-4">
         <Card>
           <CardContent className="flex items-center gap-4 p-5">
-            <div className="grid size-16 place-items-center rounded-2xl bg-primary-soft text-xl font-semibold text-primary">
-              AA
+            <div className="relative">
+              {avatar ? (
+                <img
+                  src={avatar}
+                  alt="Ahmed Ali"
+                  className="size-16 rounded-2xl object-cover"
+                />
+              ) : (
+                <div className="grid size-16 place-items-center rounded-2xl bg-primary-soft text-xl font-semibold text-primary">
+                  AA
+                </div>
+              )}
+              <button
+                type="button"
+                onClick={() => fileRef.current?.click()}
+                aria-label="Upload profile photo"
+                className="absolute -bottom-1 -right-1 grid size-7 place-items-center rounded-full border border-border bg-card text-foreground shadow-card transition-colors hover:bg-accent"
+              >
+                <Camera className="size-3.5" />
+              </button>
+              <input
+                ref={fileRef}
+                type="file"
+                accept="image/*"
+                className="sr-only"
+                onChange={(e) => onPickAvatar(e.target.files?.[0])}
+              />
             </div>
             <div>
               <p className="text-lg font-semibold">Ahmed Ali</p>
@@ -39,6 +115,65 @@ function EmployeeProfile() {
                 Active
               </span>
             </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader><CardTitle className="text-base">Account</CardTitle></CardHeader>
+          <CardContent className="space-y-3 p-4 pt-0">
+            <Button variant="outline" className="w-full" onClick={() => fileRef.current?.click()}>
+              <Camera className="size-4" /> Upload profile photo
+            </Button>
+            <Dialog open={pwOpen} onOpenChange={setPwOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="w-full">
+                  <KeyRound className="size-4" /> Change password
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-sm">
+                <DialogHeader>
+                  <DialogTitle>Change password</DialogTitle>
+                  <DialogDescription>
+                    Use at least 8 characters, mixing letters and numbers.
+                  </DialogDescription>
+                </DialogHeader>
+                <form onSubmit={submitPassword} className="space-y-3">
+                  <div className="space-y-1.5">
+                    <Label htmlFor="current-password">Current password</Label>
+                    <Input
+                      id="current-password"
+                      type="password"
+                      autoComplete="current-password"
+                      value={pw.current}
+                      onChange={(e) => setPw({ ...pw, current: e.target.value })}
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="new-password">New password</Label>
+                    <Input
+                      id="new-password"
+                      type="password"
+                      autoComplete="new-password"
+                      value={pw.next}
+                      onChange={(e) => setPw({ ...pw, next: e.target.value })}
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="confirm-password">Confirm new password</Label>
+                    <Input
+                      id="confirm-password"
+                      type="password"
+                      autoComplete="new-password"
+                      value={pw.confirm}
+                      onChange={(e) => setPw({ ...pw, confirm: e.target.value })}
+                    />
+                  </div>
+                  <DialogFooter>
+                    <Button type="submit" className="w-full">Update password</Button>
+                  </DialogFooter>
+                </form>
+              </DialogContent>
+            </Dialog>
           </CardContent>
         </Card>
 
