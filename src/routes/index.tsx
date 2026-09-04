@@ -140,7 +140,7 @@ function Dashboard() {
                   <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-muted">
                     <div className={`h-full rounded-full ${row.cls}`} style={{ width: `${row.pct}%` }} />
                   </div>
-                  <span className="w-10 text-right text-xs font-medium tabular">{row.pct}%</span>
+                  <span className="w-10 text-end text-xs font-medium tabular">{row.pct}%</span>
                 </div>
               ))}
             </div>
@@ -186,7 +186,7 @@ function Dashboard() {
                   <p className="text-xs text-muted-foreground">{item.action}</p>
                   <p className="mt-1 text-xs text-muted-foreground">{item.office}</p>
                 </div>
-                <div className="shrink-0 text-right">
+                <div className="shrink-0 text-end">
                   <p className="text-xs font-medium tabular">{item.time}</p>
                   <StatusBadge status={item.status} className="mt-1.5" />
                 </div>

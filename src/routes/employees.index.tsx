@@ -90,12 +90,12 @@ function EmployeesPage() {
         <CardContent className="space-y-4 p-4">
           <div className="grid gap-3 lg:grid-cols-[1fr_auto]">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <Search className="absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 value={query}
                 onChange={(e) => setQuery(e.target.value.slice(0, 80))}
                 placeholder="Search employees..."
-                className="pl-9"
+                className="ps-9"
                 aria-label="Search employees"
               />
             </div>
