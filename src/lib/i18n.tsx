@@ -40,6 +40,29 @@ const ar: Record<string, string> = {
   "Switch language": "تغيير اللغة",
   "248 employees": "٢٤٨ موظفًا",
   "3 locations · 4 shifts": "٣ مواقع · ٤ ورديات",
+  "248 employees · 3 locations · 4 shifts": "٢٤٨ موظفًا · ٣ مواقع · ٤ ورديات",
+
+  // Login & Slider
+  "Sign in": "تسجيل الدخول",
+  "Use your work account to continue.": "استخدم حساب العمل الخاص بك للمتابعة.",
+  Email: "البريد الإلكتروني",
+  Password: "كلمة المرور",
+  "Remember this device": "تذكر هذا الجهاز",
+  "Sign in as Admin": "تسجيل الدخول كمسؤول",
+  "Sign in as Employee": "تسجيل الدخول كموظف",
+  "Demo preview — no credentials required.": "معاينة تجريبية — لا يتطلب كلمة مرور.",
+  "Attendance that reflects how your teams work": "نظام حضور يعكس أسلوب عمل فرقك بدقة",
+  "Shift rules, grace periods, device validation, corrections and reporting — one connected attendance record.":
+    "قواعد الورديات، فترات السماح، التحقق من الأجهزة، التصحيحات والتقارير — سجل حضور موحد ومتصل.",
+  "Real-time Attendance Tracking": "متابعة الحضور في الوقت الفعلي",
+  "Instant visibility into present, late, absent and on-leave employees across all branches and locations.":
+    "رؤية فورية للموظفين الحاضرين، المتأخرين، الغائبين والمجازين في جميع الفروع والمواقع.",
+  "Streamlined Correction Requests": "إدارة مبسطة لطلبات تصحيح الحضور",
+  "Empower employees to request adjustments and give managers instant approval workflows.":
+    "تمكين الموظفين من تقديم طلبات التعديل ومنح المديرين سير موافقة فوري.",
+  "Comprehensive Analytics & Reports": "تحليلات وتقارير حضور شاملة",
+  "Export payroll-ready attendance data and visualize monthly trends at a glance.":
+    "تصدير بيانات حضور جاهزة لمسيرات الرواتب واستعراض مؤشرات الحضور الشهرية بلمحة.",
 
   // Dashboard
   "Good Morning, Admin": "صباح الخير، أيها المسؤول",
