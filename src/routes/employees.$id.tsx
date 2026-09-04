@@ -114,14 +114,16 @@ function EmployeeProfilePage() {
 
       <Tabs defaultValue="overview" className="mt-4">
         <TabsList className="flex-wrap">
-          {[
-            ["overview", "Overview"],
-            ["attendance", "Attendance"],
-            ["schedule", "Work Schedule"],
-            ["leave", "Leave"],
-            ["documents", "Documents"],
-            ["activity", "Activity"],
-          ].map(([val, label]) => (
+          {(
+            [
+              ["overview", "Overview"],
+              ["attendance", "Attendance"],
+              ["schedule", "Work Schedule"],
+              ["leave", "Leave"],
+              ["documents", "Documents"],
+              ["activity", "Activity"],
+            ] as const
+          ).map(([val, label]) => (
             <TabsTrigger key={val} value={val} className="capitalize">
               {t(label)}
             </TabsTrigger>
@@ -142,12 +144,24 @@ function EmployeeProfilePage() {
           </Card>
           <Card>
             <CardHeader><CardTitle className="text-base">{t("Employment")}</CardTitle></CardHeader>
-            <CardContent className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <CardContent className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {[
                 [t("Manager"), employee.manager],
                 [t("Employment Type"), t(employee.type)],
                 [t("Joining Date"), <span key="jd" dir="ltr">{employee.joined}</span>],
                 [t("Shift"), t(employee.shift)],
+                [
+                  t("National ID / Passport Number"),
+                  <span key="nid" dir="ltr" className="font-mono">
+                    {employee.nationalId ?? "29408150102345"}
+                  </span>,
+                ],
+                [
+                  t("Expiry Date"),
+                  <span key="nide" dir="ltr">
+                    {employee.nationalIdExpiry ?? "14 Aug 2031"}
+                  </span>,
+                ],
               ].map(([k, v], idx) => (
                 <div key={idx}>
                   <p className="text-xs text-muted-foreground">{k}</p>

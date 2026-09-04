@@ -51,6 +51,8 @@ export type Employee = {
   joined: string;
   manager: string;
   type: string;
+  nationalId?: string;
+  nationalIdExpiry?: string;
 };
 
 export const employees: Employee[] = [
@@ -69,6 +71,8 @@ export const employees: Employee[] = [
     joined: "12 Jan 2023",
     manager: "Khaled Nabil",
     type: "Full-time",
+    nationalId: "29408150102345",
+    nationalIdExpiry: "14 Aug 2031",
   },
   {
     id: "2",
@@ -85,6 +89,8 @@ export const employees: Employee[] = [
     joined: "03 Mar 2022",
     manager: "Mona Adel",
     type: "Full-time",
+    nationalId: "29605120109876",
+    nationalIdExpiry: "22 May 2030",
   },
   {
     id: "3",

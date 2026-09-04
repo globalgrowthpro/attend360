@@ -138,6 +138,12 @@ function AddEmployeePage() {
           <Field label={t("Email")} error={errors["email"]}>
             <Input name="email" type="email" placeholder="name@company.com" dir="ltr" className="text-start" />
           </Field>
+          <Field label={t("National ID / Passport Number")}>
+            <Input name="nationalId" placeholder="e.g. 29408150102345 / A12345678" dir="ltr" className="text-start font-mono" />
+          </Field>
+          <Field label={t("Expiry Date")}>
+            <Input type="date" name="nationalIdExpiry" />
+          </Field>
           <Field label={t("Address")} full error={errors["address"]}>
             <Textarea name="address" rows={2} maxLength={300} />
           </Field>
