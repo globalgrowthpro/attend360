@@ -94,28 +94,28 @@ function LoginPage() {
   }, [api]);
 
   return (
-    <div className="relative min-h-screen bg-background lg:grid lg:grid-cols-12">
+    <div className="relative h-screen max-h-screen w-full overflow-hidden bg-background lg:grid lg:grid-cols-12">
       {/* Top right language switcher */}
       <div className="absolute end-4 top-4 z-20">
         <LanguageSwitcher />
       </div>
 
-      {/* Left Column: Image Slider Showcase (wider 7/12 on lg, 8/12 on 2xl) */}
-      <div className="relative hidden flex-col justify-between overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-primary/95 p-6 text-white lg:col-span-7 lg:flex xl:col-span-7 xl:p-10 2xl:col-span-8 2xl:p-14">
+      {/* Left Column: Image Slider Showcase (fixed height, responsive to viewport, no scrollbar) */}
+      <div className="relative hidden h-full max-h-screen flex-col justify-between overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-primary/95 p-6 text-white lg:col-span-7 lg:flex xl:col-span-7 xl:px-10 xl:py-7 2xl:col-span-8 2xl:px-14 2xl:py-8">
         {/* Subtle background glow effect */}
         <div className="pointer-events-none absolute -left-32 -top-32 size-96 rounded-full bg-primary/20 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-32 -right-32 size-96 rounded-full bg-violet/20 blur-3xl" />
 
         {/* Header Logo */}
-        <div className="relative z-10 flex items-center justify-between">
+        <div className="relative z-10 flex shrink-0 items-center justify-between">
           <BrandLogo variant="dark" size="lg" />
           <span className="hidden rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur sm:inline-flex">
             {t("Attendance Suite")}
           </span>
         </div>
 
-        {/* Carousel Slider (Expanded to Full Width) */}
-        <div className="relative z-10 my-auto w-full py-4">
+        {/* Carousel Slider: centered and scaled to remaining viewport height */}
+        <div className="relative z-10 my-auto flex w-full flex-1 flex-col justify-center min-h-0 py-2">
           <Carousel
             setApi={setApi}
             opts={{
@@ -127,24 +127,26 @@ function LoginPage() {
             <CarouselContent>
               {slides.map((slide, index) => (
                 <CarouselItem key={index} className="w-full basis-full">
-                  <div className="space-y-4">
-                    {/* Full-width Image Card matching native 3:2 aspect ratio */}
+                  <div className="flex flex-col space-y-3">
+                    {/* Responsive Full-width Image Card capped at viewport height fraction */}
                     <div className="group relative w-full overflow-hidden rounded-2xl border border-white/15 bg-slate-950/80 shadow-2xl backdrop-blur">
-                      <img
-                        src={slide.image}
-                        alt={t(slide.title)}
-                        className="w-full aspect-[3/2] object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.015]"
-                        loading={index === 0 ? "eager" : "lazy"}
-                      />
+                      <div className="relative w-full aspect-[3/2] max-h-[50vh] xl:max-h-[53vh] 2xl:max-h-[58vh]">
+                        <img
+                          src={slide.image}
+                          alt={t(slide.title)}
+                          className="size-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.015]"
+                          loading={index === 0 ? "eager" : "lazy"}
+                        />
+                      </div>
                       <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
                     </div>
 
                     {/* Slide Text Content */}
-                    <div className="space-y-1.5 px-1 pt-1">
-                      <h2 className="text-xl font-bold tracking-tight text-white sm:text-2xl xl:text-3xl">
+                    <div className="space-y-1 px-1">
+                      <h2 className="text-lg font-bold tracking-tight text-white sm:text-xl xl:text-2xl">
                         {t(slide.title)}
                       </h2>
-                      <p className="text-sm leading-relaxed text-slate-300/90 xl:text-base">
+                      <p className="text-xs leading-relaxed text-slate-300 xl:text-sm line-clamp-2">
                         {t(slide.description)}
                       </p>
                     </div>
@@ -155,7 +157,7 @@ function LoginPage() {
           </Carousel>
 
           {/* Controls: Dots and Nav Buttons */}
-          <div className="mt-5 flex items-center justify-between">
+          <div className="mt-3 flex shrink-0 items-center justify-between">
             <div className="flex items-center gap-2">
               {slides.map((_, index) => (
                 <button
@@ -199,16 +201,16 @@ function LoginPage() {
         </div>
 
         {/* Footer info */}
-        <div className="relative z-10 flex items-center justify-between text-xs text-white/70">
+        <div className="relative z-10 flex shrink-0 items-center justify-between text-xs text-white/70 pt-1">
           <p>{t("248 employees · 3 locations · 4 shifts")}</p>
           <span className="font-mono text-[11px] opacity-60">v1.0</span>
         </div>
       </div>
 
-      {/* Right Column: Sign-in Form (5/12 on lg, 4/12 on 2xl) */}
-      <div className="flex min-h-screen items-center justify-center p-6 sm:p-10 lg:col-span-5 xl:col-span-5 2xl:col-span-4">
+      {/* Right Column: Sign-in Form (Centered in fixed viewport height, no scrollbar) */}
+      <div className="flex h-full max-h-screen items-center justify-center p-6 lg:col-span-5 xl:col-span-5 2xl:col-span-4 overflow-y-auto">
         <Card className="w-full max-w-sm border-border shadow-card">
-          <CardContent className="space-y-6 p-6 sm:p-8">
+          <CardContent className="space-y-5 p-6 sm:p-7">
             {/* Mobile Header Logo */}
             <div className="lg:hidden">
               <BrandLogo variant="light" size="md" />
@@ -216,12 +218,12 @@ function LoginPage() {
 
             <div>
               <h1 className="text-2xl font-bold tracking-tight text-foreground">{t("Sign in")}</h1>
-              <p className="mt-1.5 text-sm text-muted-foreground">
+              <p className="mt-1 text-sm text-muted-foreground">
                 {t("Use your work account to continue.")}
               </p>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3.5">
               <div>
                 <Label className="mb-1.5 block text-xs font-medium text-muted-foreground">
                   {t("Email")}
@@ -247,11 +249,11 @@ function LoginPage() {
               </label>
             </div>
 
-            <div className="space-y-2.5 pt-2">
-              <Button asChild className="w-full h-11 text-sm font-semibold shadow-xs">
+            <div className="space-y-2.5 pt-1">
+              <Button asChild className="w-full h-10 text-sm font-semibold shadow-xs">
                 <Link to="/">{t("Sign in as Admin")}</Link>
               </Button>
-              <Button asChild variant="outline" className="w-full h-11 text-sm font-semibold">
+              <Button asChild variant="outline" className="w-full h-10 text-sm font-semibold">
                 <Link to="/employee">{t("Sign in as Employee")}</Link>
               </Button>
             </div>
