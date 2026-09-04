@@ -183,7 +183,7 @@ function Dashboard() {
               >
                 <div className="min-w-0">
                   <p className="truncate text-sm font-medium">{item.name}</p>
-                  <p className="text-xs text-muted-foreground">{item.action}</p>
+                  <p className="text-xs text-muted-foreground">{t(item.action)}</p>
                   <p className="mt-1 text-xs text-muted-foreground">{item.office}</p>
                 </div>
                 <div className="shrink-0 text-end">

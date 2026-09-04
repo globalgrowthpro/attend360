@@ -68,6 +68,13 @@ const ar: Record<string, string> = {
   "Attendance Correction": "تصحيح الحضور",
   "Generate Report": "إنشاء تقرير",
 
+  // Activity feed
+  "Checked in": "سجّل الدخول",
+  "Checked out": "سجّل الخروج",
+  "Late arrival": "وصول متأخر",
+  "Marked absent": "تم تسجيله غائبًا",
+  "Left early": "خرج مبكرًا",
+
   // Common UI
   Save: "حفظ",
   "Save changes": "حفظ التغييرات",
