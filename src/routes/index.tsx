@@ -25,6 +25,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { activityFeed, attendanceTrend } from "@/lib/attendance-data";
 import { useI18n } from "@/lib/i18n";
+import { useCurrentDateTime } from "@/hooks/use-current-date-time";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -70,10 +71,11 @@ const quickActions = [
 
 function Dashboard() {
   const { t } = useI18n();
+  const { greeting, formatted } = useCurrentDateTime();
   return (
     <AdminShell
-      title="Good Morning, Admin"
-      description="Thursday, September 3, 2026"
+      title={greeting}
+      description={formatted}
       actions={
         <div className="hidden items-center gap-2 md:flex">
           <Select defaultValue="all">

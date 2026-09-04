@@ -3,6 +3,7 @@ import { Download, Filter } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
+import { useCurrentDateTime } from "@/hooks/use-current-date-time";
 import { AdminShell } from "@/components/AdminShell";
 import { StatusBadge } from "@/components/StatusBadge";
 import { Button } from "@/components/ui/button";
@@ -54,11 +55,12 @@ const counts = [
 
 function AttendancePage() {
   const [selected, setSelected] = useState<AttendanceRecord | null>(null);
+  const { date, time } = useCurrentDateTime();
 
   return (
     <AdminShell
       title="Attendance"
-      description="Thursday, September 3, 2026 · 248 scheduled"
+      description={`${date} · ${time} · 248 scheduled`}
       actions={
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" onClick={() => toast.success("Export queued")}>

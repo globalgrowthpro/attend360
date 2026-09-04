@@ -69,6 +69,8 @@ const ar: Record<string, string> = {
 
   // Dashboard
   "Good Morning, Admin": "صباح الخير، أيها المسؤول",
+  "Good Afternoon, Admin": "مساء الخير، أيها المسؤول",
+  "Good Evening, Admin": "مساء الخير، أيها المسؤول",
   "Thursday, September 3, 2026": "الخميس ٣ سبتمبر ٢٠٢٦",
   "All Locations": "كل المواقع",
   "Cairo HQ": "المقر الرئيسي - القاهرة",
