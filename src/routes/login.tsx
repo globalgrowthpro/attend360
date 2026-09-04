@@ -219,7 +219,7 @@ function LoginPage() {
         {/* Floating Brand Logo at Top Left over the slider */}
         <div className="pointer-events-none absolute start-8 top-8 z-20 xl:start-12 xl:top-10">
           <div className="pointer-events-auto rounded-2xl border border-white/15 bg-black/40 px-4 py-2.5 shadow-lg backdrop-blur-md">
-            <BrandLogo variant="dark" size="md" />
+            <BrandLogo mode="web" className="h-8 md:h-9 w-auto" />
           </div>
         </div>
       </div>
@@ -229,8 +229,8 @@ function LoginPage() {
         <Card className="w-full max-w-sm border-border shadow-card">
           <CardContent className="space-y-5 p-6 sm:p-7">
             {/* Mobile Header Logo */}
-            <div className="lg:hidden">
-              <BrandLogo variant="light" size="md" />
+            <div className="flex justify-center pb-1 lg:hidden">
+              <BrandLogo mode="mobile" className="h-10 w-auto" />
             </div>
 
             <div>

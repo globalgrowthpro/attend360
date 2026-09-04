@@ -1,50 +1,47 @@
 import { cn } from "@/lib/utils";
 
 export function BrandLogo({
-  variant = "light",
   className,
-  size = "md",
-  showSlogan = true,
+  mode = "auto",
+  alt = "Attend360",
 }: {
-  variant?: "light" | "dark";
   className?: string;
-  size?: "sm" | "md" | "lg";
-  showSlogan?: boolean;
+  mode?: "auto" | "web" | "mobile";
+  alt?: string;
 }) {
-  const isDark = variant === "dark";
-  const imgSize = size === "lg" ? "size-11" : size === "sm" ? "size-7" : "size-9";
-  const titleSize = size === "lg" ? "text-2xl" : size === "sm" ? "text-base" : "text-lg";
-  const sloganSize = size === "lg" ? "text-xs" : "text-[9px]";
-
-  return (
-    <div className={cn("flex items-center gap-2.5 select-none", className)}>
+  if (mode === "web") {
+    return (
       <img
-        src="/icon-192.png"
-        alt="Attend360 Logo"
-        className={cn(imgSize, "rounded-xl object-contain shadow-xs shrink-0")}
+        src="/360-weblogo.png"
+        alt={alt}
+        className={cn("h-8 w-auto object-contain select-none", className)}
       />
-      <div className="flex flex-col leading-tight">
-        <span
-          className={cn(
-            titleSize,
-            "font-extrabold tracking-tight",
-            isDark ? "text-white" : "text-foreground",
-          )}
-        >
-          Attend360
-        </span>
-        {showSlogan && (
-          <span
-            className={cn(
-              sloganSize,
-              "font-medium tracking-wider uppercase",
-              isDark ? "text-white/70" : "text-muted-foreground",
-            )}
-          >
-            Smart Attendance
-          </span>
-        )}
-      </div>
+    );
+  }
+
+  if (mode === "mobile") {
+    return (
+      <img
+        src="/360-mobilelogo.png"
+        alt={alt}
+        className={cn("h-8 w-auto object-contain select-none", className)}
+      />
+    );
+  }
+
+  // mode === "auto": renders mobile logo on small screens, web logo on larger screens
+  return (
+    <div className={cn("inline-flex items-center select-none", className)}>
+      <img
+        src="/360-mobilelogo.png"
+        alt={alt}
+        className="h-8 w-auto object-contain sm:hidden"
+      />
+      <img
+        src="/360-weblogo.png"
+        alt={alt}
+        className="hidden h-8 w-auto object-contain sm:block"
+      />
     </div>
   );
 }

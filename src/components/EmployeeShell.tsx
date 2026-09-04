@@ -30,7 +30,7 @@ export function EmployeeShell({
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-0">
       <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-card/95 px-4 py-3 backdrop-blur md:hidden">
-        <BrandLogo variant="light" size="sm" showSlogan={false} />
+        <BrandLogo mode="mobile" className="h-7 w-auto" />
         <div className="flex items-center gap-2">
           <LanguageSwitcher />
           <Link to="/employee/profile" aria-label={t("My profile")}>
@@ -53,7 +53,7 @@ export function EmployeeShell({
         <aside className="hidden w-56 shrink-0 md:block">
           <div className="sticky top-6 rounded-2xl border border-border bg-card p-3 shadow-card">
             <div className="px-2 py-3">
-              <BrandLogo variant="light" size="sm" />
+              <BrandLogo mode="web" className="h-7 w-auto" />
               <LanguageSwitcher className="mt-3 w-fit" />
             </div>
             <nav className="mt-2 flex flex-col gap-1">

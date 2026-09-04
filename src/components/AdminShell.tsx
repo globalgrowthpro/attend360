@@ -85,10 +85,10 @@ function LogoutButton({ onNavigate }: { onNavigate?: () => void }) {
   );
 }
 
-function Brand() {
+function Brand({ mode = "web" }: { mode?: "web" | "mobile" }) {
   return (
     <div className="px-5 py-5">
-      <BrandLogo variant="light" size="md" />
+      <BrandLogo mode={mode} className="h-8 w-auto" />
     </div>
   );
 }
@@ -108,7 +108,7 @@ export function AdminShell({
   return (
     <div className="min-h-screen bg-background">
       <aside className="fixed inset-y-0 start-0 z-30 hidden w-64 flex-col border-e border-sidebar-border bg-sidebar lg:flex">
-        <Brand />
+        <Brand mode="web" />
         <NavList />
         <div className="p-4">
           <LogoutButton />
@@ -129,7 +129,7 @@ export function AdminShell({
                 className="flex w-64 flex-col justify-between bg-sidebar p-0"
               >
                 <div className="flex flex-1 flex-col overflow-y-auto">
-                  <Brand />
+                  <Brand mode="mobile" />
                   <NavList />
                 </div>
                 <div className="p-4">
