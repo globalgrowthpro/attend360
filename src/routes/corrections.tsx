@@ -62,7 +62,7 @@ function CorrectionsPage() {
                 <TableHead>Requested</TableHead>
                 <TableHead>Reason</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
+                <TableHead className="text-end">Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -78,7 +78,7 @@ function CorrectionsPage() {
                   <TableCell className="tabular font-medium text-primary">{c.requested}</TableCell>
                   <TableCell className="max-w-[240px] text-sm text-muted-foreground">{c.reason}</TableCell>
                   <TableCell><RequestStatusBadge status={c.status} /></TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-end">
                     {c.status === "pending" ? (
                       <div className="flex justify-end gap-2">
                         <Button size="sm" onClick={() => toast.success(`Approved for ${c.employee}`)}>

@@ -1,3 +1,4 @@
+import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { statusMeta, type AttendanceStatus } from "@/lib/attendance-data";
 
@@ -17,6 +18,7 @@ export function StatusBadge({
   status: AttendanceStatus;
   className?: string;
 }) {
+  const { t } = useI18n();
   const meta = statusMeta[status];
   return (
     <span
@@ -27,12 +29,13 @@ export function StatusBadge({
       )}
     >
       <span className={cn("size-1.5 rounded-full", meta.dot)} aria-hidden />
-      {meta.label}
+      {t(meta.label)}
     </span>
   );
 }
 
 export function RequestStatusBadge({ status }: { status: "pending" | "approved" | "rejected" }) {
+  const { t } = useI18n();
   const map = {
     pending: { label: "Pending", cls: "bg-warning-soft text-warning", dot: "bg-warning" },
     approved: { label: "Approved", cls: "bg-success-soft text-success", dot: "bg-success" },
@@ -46,7 +49,7 @@ export function RequestStatusBadge({ status }: { status: "pending" | "approved" 
       )}
     >
       <span className={cn("size-1.5 rounded-full", map.dot)} aria-hidden />
-      {map.label}
+      {t(map.label)}
     </span>
   );
 }

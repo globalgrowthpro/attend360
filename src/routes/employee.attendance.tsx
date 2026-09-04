@@ -83,7 +83,7 @@ function EmployeeAttendance() {
                     {r.inAt} → {r.outAt}
                   </p>
                 </div>
-                <div className="text-right">
+                <div className="text-end">
                   <p className="text-sm font-medium tabular">{r.hours}</p>
                   <StatusBadge status={r.status} className="mt-1" />
                 </div>
