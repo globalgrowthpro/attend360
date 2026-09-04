@@ -94,7 +94,7 @@ function SettingsPage() {
               <CardDescription>{t("Company identity and formatting defaults.")}</CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              <Row label={t("Company Name")}><Input defaultValue="Nile Digital Group" maxLength={100} /></Row>
+              <Row label={t("Company Name")}><Input defaultValue="Attend 360 Development" maxLength={100} /></Row>
               <Row label={t("Logo")}><Button variant="outline" className="w-full">{t("Upload logo")}</Button></Row>
               <Row label={t("Time Zone")}>
                 <Select defaultValue="cairo">
@@ -266,9 +266,8 @@ function SettingsPage() {
                       <TableCell className="text-muted-foreground tabular">{d.lastUsed}</TableCell>
                       <TableCell>
                         <span
-                          className={`rounded-full px-2.5 py-1 text-xs font-medium ${
-                            deviceStatusCls[d.status] ?? "bg-secondary text-muted-foreground"
-                          }`}
+                          className={`rounded-full px-2.5 py-1 text-xs font-medium ${deviceStatusCls[d.status] ?? "bg-secondary text-muted-foreground"
+                            }`}
                         >
                           {d.status}
                         </span>

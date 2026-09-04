@@ -43,11 +43,11 @@ function AdminProfilePage() {
           <CardContent className="grid gap-4 sm:grid-cols-2">
             <div>
               <Label className="mb-1.5 block text-xs text-muted-foreground">{t("Full Name")}</Label>
-              <Input defaultValue="Mona Adel" maxLength={255} />
+              <Input defaultValue="Habiba Rahim" maxLength={255} />
             </div>
             <div>
               <Label className="mb-1.5 block text-xs text-muted-foreground">{t("Email")}</Label>
-              <Input defaultValue="mona.adel@company.com" maxLength={255} dir="ltr" className="text-start" />
+              <Input defaultValue="HabibaRahim@attend360.com" maxLength={255} dir="ltr" className="text-start" />
             </div>
             <div>
               <Label className="mb-1.5 block text-xs text-muted-foreground">{t("Phone")}</Label>

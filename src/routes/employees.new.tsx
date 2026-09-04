@@ -169,7 +169,7 @@ function AddEmployeePage() {
               <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="khaled">Khaled Nabil</SelectItem>
-                <SelectItem value="mona">Mona Adel</SelectItem>
+                <SelectItem value="mona">Habiba Rahim</SelectItem>
                 <SelectItem value="hany">Hany Samir</SelectItem>
               </SelectContent>
             </Select>

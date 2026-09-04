@@ -19,6 +19,7 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { TablePagination } from "@/components/TablePagination";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
@@ -47,6 +48,7 @@ import {
 } from "@/components/ui/table";
 import {
   attendanceRecords as initialAttendanceRecords,
+  employees,
   statusMeta,
   type AttendanceRecord,
   type AttendanceStatus,
@@ -240,18 +242,86 @@ function AttendancePage() {
   const [stagedRecords, setStagedRecords] = useState<StagedRecord[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(20);
+
+  // Date & Scope Filters
+  const [dateFilter, setDateFilter] = useState("this-month");
+  const [selectedMonth, setSelectedMonth] = useState("2026-09");
+  const [startDate, setStartDate] = useState("2026-09-01");
+  const [endDate, setEndDate] = useState("2026-09-30");
+  const [locFilter, setLocFilter] = useState("all-loc");
+  const [depFilter, setDepFilter] = useState("all-dep");
+
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const { date, time } = useCurrentDateTime();
   const { t } = useI18n();
 
-  const totalPages = Math.max(1, Math.ceil(records.length / pageSize));
+  // Dynamic date keys based on current system time
+  const dateKeys = useMemo(() => {
+    const now = new Date();
+    const todayKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+
+    const yest = new Date(now);
+    yest.setDate(now.getDate() - 1);
+    const yesterdayKey = `${yest.getFullYear()}-${String(yest.getMonth() + 1).padStart(2, "0")}-${String(yest.getDate()).padStart(2, "0")}`;
+
+    const thisMonthKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+
+    const prevMonthDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+    const lastMonthKey = `${prevMonthDate.getFullYear()}-${String(prevMonthDate.getMonth() + 1).padStart(2, "0")}`;
+
+    const weekAgoDate = new Date(now);
+    weekAgoDate.setDate(now.getDate() - 7);
+    const weekAgoKey = `${weekAgoDate.getFullYear()}-${String(weekAgoDate.getMonth() + 1).padStart(2, "0")}-${String(weekAgoDate.getDate()).padStart(2, "0")}`;
+
+    return { todayKey, yesterdayKey, thisMonthKey, lastMonthKey, weekAgoKey };
+  }, []);
+
+  // Filtered records based on active date, location and department
+  const filteredRecords = useMemo(() => {
+    const empDepMap = new Map(employees.map((e) => [e.code.toLowerCase(), e.department.toLowerCase()]));
+
+    return records.filter((r) => {
+      const recDate = normalizeDate(r.date);
+
+      // Date filter
+      if (dateFilter === "today" && recDate !== dateKeys.todayKey) return false;
+      if (dateFilter === "yesterday" && recDate !== dateKeys.yesterdayKey) return false;
+      if (dateFilter === "week" && (recDate < dateKeys.weekAgoKey || recDate > dateKeys.todayKey)) return false;
+      if (dateFilter === "this-month" && !recDate.startsWith(dateKeys.thisMonthKey)) return false;
+      if (dateFilter === "last-month" && !recDate.startsWith(dateKeys.lastMonthKey)) return false;
+      if (dateFilter === "by-month") {
+        if (selectedMonth && !recDate.startsWith(selectedMonth)) return false;
+      }
+      if (dateFilter === "custom") {
+        if (startDate && recDate < startDate) return false;
+        if (endDate && recDate > endDate) return false;
+      }
+
+      // Location filter
+      if (locFilter !== "all-loc") {
+        if (locFilter === "cairo" && !r.location.toLowerCase().includes("cairo")) return false;
+        if (locFilter === "giza" && !r.location.toLowerCase().includes("giza")) return false;
+        if (locFilter === "alex" && !r.location.toLowerCase().includes("alex")) return false;
+      }
+
+      // Department filter
+      if (depFilter !== "all-dep") {
+        const empDep = empDepMap.get(r.code.toLowerCase());
+        if (empDep && !empDep.includes(depFilter.toLowerCase())) return false;
+      }
+
+      return true;
+    });
+  }, [records, dateFilter, selectedMonth, startDate, endDate, locFilter, depFilter, dateKeys]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredRecords.length / pageSize));
   const safeCurrentPage = Math.min(currentPage, totalPages);
 
   const paginatedRecords = useMemo(() => {
     const start = (safeCurrentPage - 1) * pageSize;
-    return records.slice(start, start + pageSize);
-  }, [records, safeCurrentPage, pageSize]);
+    return filteredRecords.slice(start, start + pageSize);
+  }, [filteredRecords, safeCurrentPage, pageSize]);
 
   // Evaluate candidate records against existing database records and intra-batch duplicates
   const evaluateRecords = (rawList: Omit<AttendanceRecord, "id">[]) => {
@@ -489,32 +559,110 @@ function AttendancePage() {
           <div className="flex items-center gap-2">
             <CardTitle className="text-base">{t("Attendance Log")}</CardTitle>
             <span className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground font-mono">
-              {records.length}
+              {filteredRecords.length} {t("of")} {records.length}
             </span>
           </div>
-          <div className="grid grid-cols-2 gap-2 sm:flex">
-            <Select defaultValue="today">
-              <SelectTrigger className="w-full sm:w-[130px]"><SelectValue /></SelectTrigger>
+          <div className="flex flex-wrap items-center gap-2">
+            {/* Date filter dropdown */}
+            <Select
+              value={dateFilter}
+              onValueChange={(val) => {
+                setDateFilter(val);
+                setCurrentPage(1);
+              }}
+            >
+              <SelectTrigger className="w-full sm:w-[150px]"><SelectValue /></SelectTrigger>
               <SelectContent>
+                <SelectItem value="this-month">{t("This month")}</SelectItem>
                 <SelectItem value="today">{t("Today")}</SelectItem>
-                <SelectItem value="yesterday">Yesterday</SelectItem>
+                <SelectItem value="yesterday">{t("Yesterday")}</SelectItem>
                 <SelectItem value="week">{t("This week")}</SelectItem>
+                <SelectItem value="last-month">{t("Last month")}</SelectItem>
+                <SelectItem value="by-month">{t("By Month")}</SelectItem>
+                <SelectItem value="custom">{t("Date to Date")}</SelectItem>
+                <SelectItem value="all">{t("All Time")}</SelectItem>
               </SelectContent>
             </Select>
-            <Select defaultValue="all-loc">
-              <SelectTrigger className="w-full sm:w-[160px]"><SelectValue /></SelectTrigger>
+
+            {/* Filter by Month picker */}
+            {dateFilter === "by-month" && (
+              <Input
+                type="month"
+                value={selectedMonth}
+                onChange={(e) => {
+                  setSelectedMonth(e.target.value);
+                  setCurrentPage(1);
+                }}
+                className="h-9 w-full sm:w-[150px] text-xs font-mono"
+                aria-label={t("Select month")}
+              />
+            )}
+
+            {/* Date to Date range picker */}
+            {dateFilter === "custom" && (
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-xs text-muted-foreground whitespace-nowrap">{t("From")}:</span>
+                  <Input
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => {
+                      setStartDate(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                    className="h-9 w-[135px] text-xs font-mono"
+                    aria-label={t("Start date")}
+                  />
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-xs text-muted-foreground whitespace-nowrap">{t("To")}:</span>
+                  <Input
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => {
+                      setEndDate(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                    className="h-9 w-[135px] text-xs font-mono"
+                    aria-label={t("End date")}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Location filter */}
+            <Select
+              value={locFilter}
+              onValueChange={(val) => {
+                setLocFilter(val);
+                setCurrentPage(1);
+              }}
+            >
+              <SelectTrigger className="w-full sm:w-[150px]"><SelectValue /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="all-loc">{t("All Locations")}</SelectItem>
                 <SelectItem value="cairo">{t("Cairo HQ")}</SelectItem>
                 <SelectItem value="giza">{t("Giza Office")}</SelectItem>
+                <SelectItem value="alex">{t("Alexandria Office")}</SelectItem>
               </SelectContent>
             </Select>
-            <Select defaultValue="all-dep">
-              <SelectTrigger className="w-full sm:w-[170px]"><SelectValue /></SelectTrigger>
+
+            {/* Department filter */}
+            <Select
+              value={depFilter}
+              onValueChange={(val) => {
+                setDepFilter(val);
+                setCurrentPage(1);
+              }}
+            >
+              <SelectTrigger className="w-full sm:w-[160px]"><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="all-dep">All Departments</SelectItem>
-                <SelectItem value="it">IT</SelectItem>
-                <SelectItem value="hr">HR</SelectItem>
+                <SelectItem value="all-dep">{t("All Departments")}</SelectItem>
+                <SelectItem value="it">{t("IT")}</SelectItem>
+                <SelectItem value="hr">{t("HR")}</SelectItem>
+                <SelectItem value="finance">{t("Finance")}</SelectItem>
+                <SelectItem value="operations">{t("Operations")}</SelectItem>
+                <SelectItem value="marketing">{t("Marketing")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -555,6 +703,13 @@ function AttendancePage() {
                   <TableCell className="text-muted-foreground">{r.device}</TableCell>
                 </TableRow>
               ))}
+              {filteredRecords.length === 0 && (
+                <TableRow>
+                  <TableCell colSpan={8} className="py-10 text-center text-sm text-muted-foreground">
+                    {t("No attendance records found for this period.")}
+                  </TableCell>
+                </TableRow>
+              )}
             </TableBody>
           </Table>
 
@@ -562,7 +717,7 @@ function AttendancePage() {
             currentPage={safeCurrentPage}
             totalPages={totalPages}
             pageSize={pageSize}
-            totalItems={records.length}
+            totalItems={filteredRecords.length}
             pageSizeOptions={[10, 20, 30, 50, 100]}
             onPageChange={(p) => setCurrentPage(p)}
             onPageSizeChange={(sz) => {

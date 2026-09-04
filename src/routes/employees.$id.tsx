@@ -262,7 +262,7 @@ function EmployeeProfilePage() {
               {[
                 ["03 Sep 08:55", "Checked in from PC-001 (Cairo HQ)"],
                 ["02 Sep 17:04", "Checked out from PC-001"],
-                ["28 Aug 10:02", "Correction request approved by Mona Adel"],
+                ["28 Aug 10:02", "Correction request approved by Habiba Rahim"],
                 ["12 Jan 2023", "Employee record created"],
               ].map(([time, text]) => (
                 <div key={time} className="flex gap-3">
