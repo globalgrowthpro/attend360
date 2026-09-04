@@ -16,6 +16,7 @@ import { useCurrentDateTime } from "@/hooks/use-current-date-time";
 import { useI18n } from "@/lib/i18n";
 import { AdminShell } from "@/components/AdminShell";
 import { StatusBadge } from "@/components/StatusBadge";
+import { TablePagination } from "@/components/TablePagination";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -237,10 +238,20 @@ function AttendancePage() {
   const [selected, setSelected] = useState<AttendanceRecord | null>(null);
   const [isImportOpen, setIsImportOpen] = useState(false);
   const [stagedRecords, setStagedRecords] = useState<StagedRecord[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const { date, time } = useCurrentDateTime();
   const { t } = useI18n();
+
+  const totalPages = Math.max(1, Math.ceil(records.length / pageSize));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+
+  const paginatedRecords = useMemo(() => {
+    const start = (safeCurrentPage - 1) * pageSize;
+    return records.slice(start, start + pageSize);
+  }, [records, safeCurrentPage, pageSize]);
 
   // Evaluate candidate records against existing database records and intra-batch duplicates
   const evaluateRecords = (rawList: Omit<AttendanceRecord, "id">[]) => {
@@ -376,6 +387,7 @@ function AttendancePage() {
     }));
 
     setRecords((prev) => [...newRecords, ...prev]);
+    setCurrentPage(1);
     const rejectedDuplicates = stagedRecords.filter((r) => r.isDuplicate).length;
 
     toast.success(
@@ -522,7 +534,7 @@ function AttendancePage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {records.map((r) => (
+              {paginatedRecords.map((r) => (
                 <TableRow
                   key={r.id}
                   onClick={() => setSelected(r)}
@@ -545,6 +557,20 @@ function AttendancePage() {
               ))}
             </TableBody>
           </Table>
+
+          <TablePagination
+            currentPage={safeCurrentPage}
+            totalPages={totalPages}
+            pageSize={pageSize}
+            totalItems={records.length}
+            pageSizeOptions={[10, 20, 30, 50, 100]}
+            onPageChange={(p) => setCurrentPage(p)}
+            onPageSizeChange={(sz) => {
+              setPageSize(sz);
+              setCurrentPage(1);
+            }}
+            itemLabel="records"
+          />
         </CardContent>
       </Card>
 

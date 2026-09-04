@@ -45,6 +45,24 @@ const ar: Record<string, string> = {
   "3 locations · 4 shifts": "٣ مواقع · ٤ ورديات",
   "248 employees · 3 locations · 4 shifts": "٢٤٨ موظفًا · ٣ مواقع · ٤ ورديات",
 
+  // Pagination & tables
+  "Rows per page": "الصفوف لكل صفحة",
+  Page: "صفحة",
+  of: "من",
+  Showing: "عرض",
+  to: "إلى",
+  First: "الأول",
+  Last: "الأخير",
+  "First page": "الصفحة الأولى",
+  "Last page": "الصفحة الأخيرة",
+  Previous: "السابق",
+  Next: "التالي",
+  "0 records": "لا توجد سجلات",
+  employees: "موظف",
+  records: "سجل",
+  "employees shown": "موظف معروض",
+  "records shown": "سجل معروض",
+
   // Login & Slider
   Developer: "المطور",
   "Sign in": "تسجيل الدخول",
@@ -184,8 +202,6 @@ const ar: Record<string, string> = {
   Delete: "حذف",
   Edit: "تعديل",
   "No employees match these filters.": "لا يوجد موظفون يطابقون خيارات التصفية هذه.",
-  "employees shown": "موظفًا معروضًا",
-  of: "من",
   "Finance": "المالية",
   "Operations": "العمليات",
   "Marketing": "التسويق",

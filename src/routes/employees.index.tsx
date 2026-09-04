@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/table";
 import { employees } from "@/lib/attendance-data";
 import { useI18n } from "@/lib/i18n";
+import { TablePagination } from "@/components/TablePagination";
 
 export const Route = createFileRoute("/employees/")({
   head: () => ({
@@ -48,6 +49,8 @@ function EmployeesPage() {
   const [dept, setDept] = useState("all");
   const [loc, setLoc] = useState("all");
   const [status, setStatus] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(15);
 
   const rows = useMemo(
     () =>
@@ -67,6 +70,14 @@ function EmployeesPage() {
       }),
     [query, dept, loc, status],
   );
+
+  const totalPages = Math.max(1, Math.ceil(rows.length / pageSize));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+
+  const paginatedRows = useMemo(() => {
+    const start = (safeCurrentPage - 1) * pageSize;
+    return rows.slice(start, start + pageSize);
+  }, [rows, safeCurrentPage, pageSize]);
 
   return (
     <AdminShell
@@ -95,14 +106,23 @@ function EmployeesPage() {
               <Search className="absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 value={query}
-                onChange={(e) => setQuery(e.target.value.slice(0, 80))}
+                onChange={(e) => {
+                  setQuery(e.target.value.slice(0, 80));
+                  setCurrentPage(1);
+                }}
                 placeholder={t("Search employees...")}
                 className="ps-9"
                 aria-label={t("Search employees")}
               />
             </div>
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-              <Select value={dept} onValueChange={setDept}>
+              <Select
+                value={dept}
+                onValueChange={(v) => {
+                  setDept(v);
+                  setCurrentPage(1);
+                }}
+              >
                 <SelectTrigger><SelectValue placeholder={t("Department")} /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">{t("All Departments")}</SelectItem>
@@ -111,7 +131,13 @@ function EmployeesPage() {
                   ))}
                 </SelectContent>
               </Select>
-              <Select value={loc} onValueChange={setLoc}>
+              <Select
+                value={loc}
+                onValueChange={(v) => {
+                  setLoc(v);
+                  setCurrentPage(1);
+                }}
+              >
                 <SelectTrigger><SelectValue placeholder={t("Location")} /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">{t("All Locations")}</SelectItem>
@@ -120,7 +146,13 @@ function EmployeesPage() {
                   ))}
                 </SelectContent>
               </Select>
-              <Select value={status} onValueChange={setStatus}>
+              <Select
+                value={status}
+                onValueChange={(v) => {
+                  setStatus(v);
+                  setCurrentPage(1);
+                }}
+              >
                 <SelectTrigger><SelectValue placeholder={t("Status")} /></SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">{t("Any Status")}</SelectItem>
@@ -155,7 +187,7 @@ function EmployeesPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {rows.map((e) => (
+                {paginatedRows.map((e) => (
                   <TableRow key={e.id}>
                     <TableCell>
                       <Link to="/employees/$id" params={{ id: e.id }} className="flex items-center gap-3">
@@ -215,6 +247,20 @@ function EmployeesPage() {
               </TableBody>
             </Table>
           </div>
+
+          <TablePagination
+            currentPage={safeCurrentPage}
+            totalPages={totalPages}
+            pageSize={pageSize}
+            totalItems={rows.length}
+            pageSizeOptions={[10, 15, 25, 50, 100]}
+            onPageChange={(p) => setCurrentPage(p)}
+            onPageSizeChange={(sz) => {
+              setPageSize(sz);
+              setCurrentPage(1);
+            }}
+            itemLabel="employees"
+          />
         </CardContent>
       </Card>
     </AdminShell>
