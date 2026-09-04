@@ -55,6 +55,7 @@ export function EmployeeShell({
             <div className="px-2 py-3">
               <img src={logoAsset.url} alt="Attend360" className="h-7 w-auto" />
               <p className="mt-1 text-xs text-muted-foreground">{t("Self service")}</p>
+              <LanguageSwitcher className="mt-3 w-fit" />
             </div>
             <nav className="mt-2 flex flex-col gap-1">
               {nav.map((item) => {

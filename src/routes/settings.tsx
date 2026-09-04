@@ -24,6 +24,7 @@ import {
   shifts,
   workSchedule,
 } from "@/lib/attendance-data";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/settings")({
   head: () => ({
@@ -58,13 +59,14 @@ const deviceStatusCls: Record<string, string> = {
 };
 
 function SettingsPage() {
+  const { t } = useI18n();
   return (
     <AdminShell
       title="Settings"
       description="Company, attendance rules, shifts, devices and permissions"
       actions={
-        <Button size="sm" onClick={() => toast.success("Settings saved")}>
-          Save changes
+        <Button size="sm" onClick={() => toast.success(t("Settings saved"))}>
+          {t("Save changes")}
         </Button>
       }
     >

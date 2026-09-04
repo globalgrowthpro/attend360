@@ -24,6 +24,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { activityFeed, attendanceTrend } from "@/lib/attendance-data";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -68,6 +69,7 @@ const quickActions = [
 ] as const;
 
 function Dashboard() {
+  const { t } = useI18n();
   return (
     <AdminShell
       title="Good Morning, Admin"
@@ -79,10 +81,10 @@ function Dashboard() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Locations</SelectItem>
-              <SelectItem value="cairo">Cairo HQ</SelectItem>
-              <SelectItem value="giza">Giza Office</SelectItem>
-              <SelectItem value="alex">Alexandria Office</SelectItem>
+              <SelectItem value="all">{t("All Locations")}</SelectItem>
+              <SelectItem value="cairo">{t("Cairo HQ")}</SelectItem>
+              <SelectItem value="giza">{t("Giza Office")}</SelectItem>
+              <SelectItem value="alex">{t("Alexandria Office")}</SelectItem>
             </SelectContent>
           </Select>
           <Select defaultValue="today">
@@ -90,9 +92,9 @@ function Dashboard() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="today">Today</SelectItem>
-              <SelectItem value="week">This week</SelectItem>
-              <SelectItem value="month">This month</SelectItem>
+              <SelectItem value="today">{t("Today")}</SelectItem>
+              <SelectItem value="week">{t("This week")}</SelectItem>
+              <SelectItem value="month">{t("This month")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -117,7 +119,7 @@ function Dashboard() {
                   <ArrowUpRight className="size-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
                 </div>
                 <p className="mt-3 text-2xl font-semibold tabular">{kpi.value}</p>
-                <p className="text-xs text-muted-foreground">{kpi.label}</p>
+                <p className="text-xs text-muted-foreground">{t(kpi.label)}</p>
               </CardContent>
             </Card>
           </Link>
@@ -127,14 +129,14 @@ function Dashboard() {
       <div className="mt-6 grid gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2">
           <CardHeader className="flex-row items-center justify-between">
-            <CardTitle className="text-base">Today's Attendance</CardTitle>
-            <span className="text-xs text-muted-foreground">248 scheduled employees</span>
+            <CardTitle className="text-base">{t("Today's Attendance")}</CardTitle>
+            <span className="text-xs text-muted-foreground">{t("248 scheduled employees")}</span>
           </CardHeader>
           <CardContent className="space-y-5">
             <div className="space-y-3">
               {breakdown.map((row) => (
                 <div key={row.label} className="flex items-center gap-3">
-                  <span className="w-16 shrink-0 text-xs text-muted-foreground">{row.label}</span>
+                  <span className="w-16 shrink-0 text-xs text-muted-foreground">{t(row.label)}</span>
                   <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-muted">
                     <div className={`h-full rounded-full ${row.cls}`} style={{ width: `${row.pct}%` }} />
                   </div>
@@ -168,9 +170,9 @@ function Dashboard() {
 
         <Card>
           <CardHeader className="flex-row items-center justify-between">
-            <CardTitle className="text-base">Today's Activity</CardTitle>
+            <CardTitle className="text-base">{t("Today's Activity")}</CardTitle>
             <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <span className="size-1.5 animate-pulse rounded-full bg-success" /> Live
+              <span className="size-1.5 animate-pulse rounded-full bg-success" /> {t("Live")}
             </span>
           </CardHeader>
           <CardContent className="space-y-3">
@@ -196,14 +198,14 @@ function Dashboard() {
 
       <Card className="mt-4">
         <CardHeader>
-          <CardTitle className="text-base">Quick Actions</CardTitle>
+          <CardTitle className="text-base">{t("Quick Actions")}</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {quickActions.map((action) => (
             <Button key={action.label} asChild variant="outline" className="h-12 justify-start gap-3">
               <Link to={action.to}>
                 <action.icon className="size-4 text-primary" />
-                {action.label}
+                {t(action.label)}
               </Link>
             </Button>
           ))}
