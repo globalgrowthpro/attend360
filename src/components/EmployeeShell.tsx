@@ -3,6 +3,7 @@ import { CalendarDays, Clock, FileBarChart, Home, User } from "lucide-react";
 import type { ReactNode } from "react";
 
 import logoAsset from "@/assets/attend360-logo.png.asset.json";
+import { useAvatarUrl } from "@/lib/avatar-store";
 import { cn } from "@/lib/utils";
 
 const nav = [
@@ -21,6 +22,7 @@ export function EmployeeShell({
   children: ReactNode;
 }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const avatar = useAvatarUrl();
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-0">

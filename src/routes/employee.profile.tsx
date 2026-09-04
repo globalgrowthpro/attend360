@@ -18,6 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
+import { setAvatarUrl, useAvatarUrl } from "@/lib/avatar-store";
 
 export const Route = createFileRoute("/employee/profile")({
   head: () => ({
@@ -37,7 +38,7 @@ export const Route = createFileRoute("/employee/profile")({
 
 function EmployeeProfile() {
   const fileRef = useRef<HTMLInputElement>(null);
-  const [avatar, setAvatar] = useState<string | null>(null);
+  const avatar = useAvatarUrl();
   const [pwOpen, setPwOpen] = useState(false);
   const [pw, setPw] = useState({ current: "", next: "", confirm: "" });
 
@@ -51,7 +52,7 @@ function EmployeeProfile() {
       toast.error("Image must be smaller than 3 MB");
       return;
     }
-    setAvatar(URL.createObjectURL(file));
+    setAvatarUrl(URL.createObjectURL(file));
     toast.success("Profile photo updated");
   }
 
