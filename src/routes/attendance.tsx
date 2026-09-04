@@ -17,6 +17,7 @@ import { useI18n } from "@/lib/i18n";
 import { AdminShell } from "@/components/AdminShell";
 import { StatusBadge } from "@/components/StatusBadge";
 import { TablePagination } from "@/components/TablePagination";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -49,6 +50,7 @@ import {
 import {
   attendanceRecords as initialAttendanceRecords,
   employees,
+  getAvatarByName,
   statusMeta,
   type AttendanceRecord,
   type AttendanceStatus,
@@ -691,8 +693,18 @@ function AttendancePage() {
                   onKeyDown={(e) => e.key === "Enter" && setSelected(r)}
                 >
                   <TableCell>
-                    <p className="font-medium">{r.employee}</p>
-                    <p className="text-xs text-muted-foreground tabular"><span dir="ltr">{r.code}</span></p>
+                    <div className="flex items-center gap-2.5">
+                      <Avatar className="size-8 shrink-0 ring-1 ring-border shadow-2xs">
+                        <AvatarImage src={getAvatarByName(r.employee, r.code)} alt={r.employee} className="object-cover" />
+                        <AvatarFallback className="bg-primary-soft text-primary text-[10px] font-semibold">
+                          {r.employee.split(" ").map((n) => n[0]).join("")}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="font-medium">{r.employee}</p>
+                        <p className="text-xs text-muted-foreground tabular"><span dir="ltr">{r.code}</span></p>
+                      </div>
+                    </div>
                   </TableCell>
                   <TableCell className="text-muted-foreground whitespace-nowrap"><span dir="ltr">{r.date}</span></TableCell>
                   <TableCell className="tabular"><span dir="ltr">{r.checkIn ?? "—"}</span></TableCell>
@@ -744,10 +756,20 @@ function AttendancePage() {
           {selected ? (
             <>
               <SheetHeader>
-                <SheetTitle>{t("Attendance Details")}</SheetTitle>
-                <SheetDescription>
-                  {selected.employee} · <span dir="ltr">{selected.date}</span>
-                </SheetDescription>
+                <div className="flex items-center gap-3">
+                  <Avatar className="size-12 shrink-0 ring-1 ring-border shadow-xs">
+                    <AvatarImage src={getAvatarByName(selected.employee, selected.code)} alt={selected.employee} className="object-cover" />
+                    <AvatarFallback className="bg-primary-soft text-primary text-sm font-semibold">
+                      {selected.employee.split(" ").map((n) => n[0]).join("")}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <SheetTitle>{selected.employee}</SheetTitle>
+                    <SheetDescription>
+                      <span dir="ltr">{selected.code}</span> · <span dir="ltr">{selected.date}</span>
+                    </SheetDescription>
+                  </div>
+                </div>
               </SheetHeader>
               <div className="space-y-4 px-4">
                 <div className="grid grid-cols-2 gap-3">

@@ -53,9 +53,11 @@ export type Employee = {
   type: string;
   nationalId?: string;
   nationalIdExpiry?: string;
+  avatar?: string;
+  gender?: "male" | "female";
 };
 
-export const employees: Employee[] = [
+const rawEmployees: Employee[] = [
   {
     id: "1",
     code: "EMP001",
@@ -575,6 +577,41 @@ export const employees: Employee[] = [
     type: "Full-time",
   },
 ];
+
+const femaleNames = new Set([
+  "sara hassan",
+  "mona adel",
+  "habiba rahim",
+  "nour mostafa",
+  "laila fouad",
+  "reem al-ghamdi",
+  "dina samy",
+  "mariam zaher",
+  "yasmin lotfy",
+  "rania bakr",
+  "salma fawzy",
+  "heba mahmoud",
+  "farida shawky",
+  "inas el-sayed",
+  "nadia hamdy",
+  "abeer sabry",
+  "laila samir",
+]);
+
+export function getAvatarByName(name: string, code?: string): string {
+  const isFemale = femaleNames.has((name || "").trim().toLowerCase());
+  const hash = Math.abs(
+    (code || name || "1").split("").reduce((acc, char) => acc + char.charCodeAt(0), 0)
+  );
+  const idx = (hash % 3) + 1;
+  return `/avatars/${isFemale ? "female" : "male"}-${idx}.jpg`;
+}
+
+export const employees: Employee[] = rawEmployees.map((e) => ({
+  ...e,
+  gender: femaleNames.has(e.name.trim().toLowerCase()) ? ("female" as const) : ("male" as const),
+  avatar: getAvatarByName(e.name, e.code),
+}));
 
 export type AttendanceRecord = {
   id: string;

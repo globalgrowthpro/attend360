@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 
 import { AdminShell } from "@/components/AdminShell";
 import { StatusBadge } from "@/components/StatusBadge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -190,11 +191,14 @@ function EmployeesPage() {
                 {paginatedRows.map((e) => (
                   <TableRow key={e.id}>
                     <TableCell>
-                      <Link to="/employees/$id" params={{ id: e.id }} className="flex items-center gap-3">
-                        <span className="grid size-8 shrink-0 place-items-center rounded-full bg-primary-soft text-xs font-semibold text-primary">
-                          {e.name.split(" ").map((n) => n[0]).join("")}
-                        </span>
-                        <span className="font-medium hover:text-primary">{e.name}</span>
+                      <Link to="/employees/$id" params={{ id: e.id }} className="flex items-center gap-3 group">
+                        <Avatar className="size-9 shrink-0 ring-1 ring-border shadow-xs">
+                          <AvatarImage src={e.avatar} alt={e.name} className="object-cover" />
+                          <AvatarFallback className="bg-primary-soft text-primary text-xs font-semibold">
+                            {e.name.split(" ").map((n) => n[0]).join("")}
+                          </AvatarFallback>
+                        </Avatar>
+                        <span className="font-medium group-hover:text-primary transition-colors">{e.name}</span>
                       </Link>
                     </TableCell>
                     <TableCell className="tabular text-muted-foreground"><span dir="ltr">{e.code}</span></TableCell>

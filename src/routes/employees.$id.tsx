@@ -3,6 +3,7 @@ import { Mail, Phone, Pencil } from "lucide-react";
 
 import { AdminShell } from "@/components/AdminShell";
 import { StatusBadge } from "@/components/StatusBadge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -83,9 +84,12 @@ function EmployeeProfilePage() {
     >
       <Card>
         <CardContent className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center">
-          <div className="grid size-16 shrink-0 place-items-center rounded-2xl bg-primary-soft text-xl font-semibold text-primary">
-            {employee.name.split(" ").map((n) => n[0]).join("")}
-          </div>
+          <Avatar className="size-16 shrink-0 rounded-2xl ring-2 ring-primary/20 shadow-md">
+            <AvatarImage src={employee.avatar} alt={employee.name} className="object-cover rounded-2xl" />
+            <AvatarFallback className="rounded-2xl bg-primary-soft text-xl font-semibold text-primary">
+              {employee.name.split(" ").map((n) => n[0]).join("")}
+            </AvatarFallback>
+          </Avatar>
           <div className="min-w-0 flex-1">
             <div className="flex flex-wrap items-center gap-2">
               <h2 className="text-lg font-semibold">{employee.name}</h2>

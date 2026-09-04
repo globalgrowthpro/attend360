@@ -20,10 +20,11 @@ import {
 
 import { AdminShell } from "@/components/AdminShell";
 import { StatusBadge } from "@/components/StatusBadge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { activityFeed, attendanceTrend } from "@/lib/attendance-data";
+import { activityFeed, attendanceTrend, getAvatarByName } from "@/lib/attendance-data";
 import { useI18n } from "@/lib/i18n";
 import { useCurrentDateTime } from "@/hooks/use-current-date-time";
 
@@ -181,16 +182,23 @@ function Dashboard() {
             {activityFeed.map((item) => (
               <div
                 key={item.name + item.time}
-                className="flex items-start justify-between gap-3 rounded-xl border border-border p-3"
+                className="flex items-center justify-between gap-3 rounded-xl border border-border p-3"
               >
-                <div className="min-w-0">
-                  <p className="truncate text-sm font-medium">{item.name}</p>
-                  <p className="text-xs text-muted-foreground">{t(item.action)}</p>
-                  <p className="mt-1 text-xs text-muted-foreground">{item.office}</p>
+                <div className="flex items-center gap-3 min-w-0">
+                  <Avatar className="size-9 shrink-0 ring-1 ring-border shadow-2xs">
+                    <AvatarImage src={getAvatarByName(item.name)} alt={item.name} className="object-cover" />
+                    <AvatarFallback className="bg-primary-soft text-primary text-xs font-semibold">
+                      {item.name.split(" ").map((n) => n[0]).join("")}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-medium">{item.name}</p>
+                    <p className="text-xs text-muted-foreground">{t(item.action)} · {item.office}</p>
+                  </div>
                 </div>
                 <div className="shrink-0 text-end">
                   <p className="text-xs font-medium tabular">{item.time}</p>
-                  <StatusBadge status={item.status} className="mt-1.5" />
+                  <StatusBadge status={item.status} className="mt-1" />
                 </div>
               </div>
             ))}
