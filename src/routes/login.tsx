@@ -2,8 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import logoAsset from "@/assets/attend360-logo.png.asset.json";
-import markAsset from "@/assets/attend360-mark.png.asset.json";
+import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -95,30 +94,28 @@ function LoginPage() {
   }, [api]);
 
   return (
-    <div className="relative min-h-screen bg-background lg:grid lg:grid-cols-2">
+    <div className="relative min-h-screen bg-background lg:grid lg:grid-cols-12">
       {/* Top right language switcher */}
       <div className="absolute end-4 top-4 z-20">
         <LanguageSwitcher />
       </div>
 
-      {/* Left Column: Image Slider Showcase */}
-      <div className="relative hidden flex-col justify-between overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-primary/90 p-8 text-white lg:flex xl:p-12">
+      {/* Left Column: Image Slider Showcase (wider 7/12 on lg, 8/12 on 2xl) */}
+      <div className="relative hidden flex-col justify-between overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-primary/95 p-6 text-white lg:col-span-7 lg:flex xl:col-span-7 xl:p-10 2xl:col-span-8 2xl:p-14">
         {/* Subtle background glow effect */}
         <div className="pointer-events-none absolute -left-32 -top-32 size-96 rounded-full bg-primary/20 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-32 -right-32 size-96 rounded-full bg-violet/20 blur-3xl" />
 
         {/* Header Logo */}
-        <div className="relative z-10 flex items-center gap-3">
-          <div className="rounded-xl bg-white/95 p-2 shadow-lg backdrop-blur">
-            <img src={logoAsset.url} alt="Attend360" className="h-9 w-auto" />
-          </div>
-          <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur">
+        <div className="relative z-10 flex items-center justify-between">
+          <BrandLogo variant="dark" size="lg" />
+          <span className="hidden rounded-full border border-white/20 bg-white/10 px-3 py-1 text-xs font-medium text-white/90 backdrop-blur sm:inline-flex">
             {t("Attendance Suite")}
           </span>
         </div>
 
-        {/* Carousel Slider */}
-        <div className="relative z-10 my-auto py-6">
+        {/* Carousel Slider (Expanded to Full Width) */}
+        <div className="relative z-10 my-auto w-full py-4">
           <Carousel
             setApi={setApi}
             opts={{
@@ -129,27 +126,25 @@ function LoginPage() {
           >
             <CarouselContent>
               {slides.map((slide, index) => (
-                <CarouselItem key={index}>
-                  <div className="space-y-5">
-                    {/* Image Mockup Card */}
-                    <div className="group relative overflow-hidden rounded-2xl border border-white/15 bg-slate-900/60 p-2 shadow-2xl backdrop-blur">
-                      <div className="overflow-hidden rounded-xl bg-slate-950">
-                        <img
-                          src={slide.image}
-                          alt={t(slide.title)}
-                          className="h-[330px] w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-                          loading={index === 0 ? "eager" : "lazy"}
-                        />
-                      </div>
+                <CarouselItem key={index} className="w-full basis-full">
+                  <div className="space-y-4">
+                    {/* Full-width Image Card matching native 3:2 aspect ratio */}
+                    <div className="group relative w-full overflow-hidden rounded-2xl border border-white/15 bg-slate-950/80 shadow-2xl backdrop-blur">
+                      <img
+                        src={slide.image}
+                        alt={t(slide.title)}
+                        className="w-full aspect-[3/2] object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.015]"
+                        loading={index === 0 ? "eager" : "lazy"}
+                      />
                       <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/10" />
                     </div>
 
                     {/* Slide Text Content */}
-                    <div className="space-y-2 px-1">
-                      <h2 className="text-2xl font-bold tracking-tight text-white xl:text-3xl">
+                    <div className="space-y-1.5 px-1 pt-1">
+                      <h2 className="text-xl font-bold tracking-tight text-white sm:text-2xl xl:text-3xl">
                         {t(slide.title)}
                       </h2>
-                      <p className="text-sm leading-relaxed text-slate-300 xl:text-base">
+                      <p className="text-sm leading-relaxed text-slate-300/90 xl:text-base">
                         {t(slide.description)}
                       </p>
                     </div>
@@ -160,7 +155,7 @@ function LoginPage() {
           </Carousel>
 
           {/* Controls: Dots and Nav Buttons */}
-          <div className="mt-6 flex items-center justify-between">
+          <div className="mt-5 flex items-center justify-between">
             <div className="flex items-center gap-2">
               {slides.map((_, index) => (
                 <button
@@ -210,17 +205,13 @@ function LoginPage() {
         </div>
       </div>
 
-      {/* Right Column: Sign-in Form */}
-      <div className="flex min-h-screen items-center justify-center p-6 sm:p-10">
-        <Card className="w-full max-w-md border-border shadow-card">
+      {/* Right Column: Sign-in Form (5/12 on lg, 4/12 on 2xl) */}
+      <div className="flex min-h-screen items-center justify-center p-6 sm:p-10 lg:col-span-5 xl:col-span-5 2xl:col-span-4">
+        <Card className="w-full max-w-sm border-border shadow-card">
           <CardContent className="space-y-6 p-6 sm:p-8">
             {/* Mobile Header Logo */}
-            <div className="flex items-center gap-3 lg:hidden">
-              <img src={markAsset.url} alt="Attend360" className="size-9 rounded-lg" />
-              <div>
-                <p className="text-base font-bold">Attend360</p>
-                <p className="text-xs text-muted-foreground">{t("Attendance Suite")}</p>
-              </div>
+            <div className="lg:hidden">
+              <BrandLogo variant="light" size="md" />
             </div>
 
             <div>

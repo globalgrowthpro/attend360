@@ -13,8 +13,7 @@ Settings,
 } from "lucide-react";
 import type { ReactNode } from "react";
 
-import logoAsset from "@/assets/attend360-logo.png.asset.json";
-import markAsset from "@/assets/attend360-mark.png.asset.json";
+import { BrandLogo } from "@/components/BrandLogo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -87,23 +86,9 @@ function LogoutButton({ onNavigate }: { onNavigate?: () => void }) {
 }
 
 function Brand() {
-  const { t } = useI18n();
   return (
     <div className="px-5 py-5">
-      <img
-        src={logoAsset.url}
-        alt="Attend360"
-        className="hidden h-8 w-auto lg:block"
-        width={200}
-        height={60}
-      />
-      <div className="flex items-center gap-2.5 lg:hidden">
-        <img src={markAsset.url} alt="Attend360" className="size-9 rounded-lg" />
-        <div className="leading-tight">
-          <p className="text-sm font-semibold">Attend360</p>
-          <p className="text-xs text-muted-foreground">{t("Attendance Suite")}</p>
-        </div>
-      </div>
+      <BrandLogo variant="light" size="md" />
     </div>
   );
 }

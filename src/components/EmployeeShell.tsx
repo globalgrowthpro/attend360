@@ -2,7 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { CalendarDays, Clock, FileBarChart, Home, User } from "lucide-react";
 import type { ReactNode } from "react";
 
-import logoAsset from "@/assets/attend360-logo.png.asset.json";
+import { BrandLogo } from "@/components/BrandLogo";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useAvatarUrl } from "@/lib/avatar-store";
 import { useI18n } from "@/lib/i18n";
@@ -30,7 +30,7 @@ export function EmployeeShell({
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-0">
       <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-card/95 px-4 py-3 backdrop-blur md:hidden">
-        <img src={logoAsset.url} alt="Attend360" className="h-7 w-auto" />
+        <BrandLogo variant="light" size="sm" showSlogan={false} />
         <div className="flex items-center gap-2">
           <LanguageSwitcher />
           <Link to="/employee/profile" aria-label={t("My profile")}>
@@ -53,8 +53,7 @@ export function EmployeeShell({
         <aside className="hidden w-56 shrink-0 md:block">
           <div className="sticky top-6 rounded-2xl border border-border bg-card p-3 shadow-card">
             <div className="px-2 py-3">
-              <img src={logoAsset.url} alt="Attend360" className="h-7 w-auto" />
-              <p className="mt-1 text-xs text-muted-foreground">{t("Self service")}</p>
+              <BrandLogo variant="light" size="sm" />
               <LanguageSwitcher className="mt-3 w-fit" />
             </div>
             <nav className="mt-2 flex flex-col gap-1">
