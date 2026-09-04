@@ -65,15 +65,24 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
         <User className="size-4" />
         {t("My Profile")}
       </Link>
-      <Link
-        to="/login"
-        onClick={onNavigate}
-        className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-danger-soft hover:text-danger"
-      >
-        <LogOut className="size-4" />
-        {t("Logout")}
-      </Link>
     </nav>
+  );
+}
+
+function LogoutButton({ onNavigate }: { onNavigate?: () => void }) {
+  const { t } = useI18n();
+  return (
+    <Button
+      asChild
+      variant="outline"
+      className="w-full justify-start gap-3 rounded-xl border-border/80 bg-sidebar-accent/30 text-sm font-medium text-muted-foreground transition-colors hover:border-destructive/30 hover:bg-destructive/10 hover:text-destructive"
+      onClick={onNavigate}
+    >
+      <Link to="/login">
+        <LogOut className="size-4" />
+        <span>{t("Logout")}</span>
+      </Link>
+    </Button>
   );
 }
 
@@ -117,10 +126,7 @@ export function AdminShell({
         <Brand />
         <NavList />
         <div className="p-4">
-          <div className="rounded-xl bg-primary-soft p-3 text-xs text-secondary-foreground">
-            <p className="font-semibold">{t("248 employees")}</p>
-            <p className="mt-1 text-muted-foreground">{t("3 locations · 4 shifts")}</p>
-          </div>
+          <LogoutButton />
         </div>
       </aside>
 
@@ -133,9 +139,17 @@ export function AdminShell({
                   <Menu className="size-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side={dir === "rtl" ? "right" : "left"} className="w-64 bg-sidebar p-0">
-                <Brand />
-                <NavList />
+              <SheetContent
+                side={dir === "rtl" ? "right" : "left"}
+                className="flex w-64 flex-col justify-between bg-sidebar p-0"
+              >
+                <div className="flex flex-1 flex-col overflow-y-auto">
+                  <Brand />
+                  <NavList />
+                </div>
+                <div className="p-4">
+                  <LogoutButton />
+                </div>
               </SheetContent>
             </Sheet>
 
