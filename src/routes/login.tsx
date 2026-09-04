@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ExternalLink, Globe, Phone } from "lucide-react";
 
 import { BrandLogo } from "@/components/BrandLogo";
 import { Button } from "@/components/ui/button";
@@ -181,9 +181,33 @@ function LoginPage() {
                     </div>
                   </div>
 
-                  {/* Footer Stats */}
-                  <div className="flex items-center justify-between border-t border-white/15 pt-3 text-xs text-white/70">
-                    <p>{t("248 employees · 3 locations · 4 shifts")}</p>
+                  {/* Developer Credit Footer */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-t border-white/15 pt-3 text-xs text-white/80">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                      <span className="font-medium text-white/90">
+                        {t("Developer")}: <span className="font-semibold text-white">Mr. Hafez Rahim</span>
+                      </span>
+                      <span className="hidden text-white/30 sm:inline">•</span>
+                      <a
+                        href="https://odooteams.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded-md bg-white/10 px-2 py-0.5 font-medium text-white transition-colors hover:bg-white/20 hover:text-white"
+                      >
+                        <Globe className="size-3.5 text-primary-soft" />
+                        <span>Odooteams.com</span>
+                        <ExternalLink className="size-3 opacity-60" />
+                      </a>
+                      <span className="hidden text-white/30 sm:inline">•</span>
+                      <a
+                        href="tel:+201007419344"
+                        className="inline-flex items-center gap-1 text-white/90 transition-colors hover:text-white hover:underline"
+                        title="Contact +201007419344"
+                      >
+                        <Phone className="size-3 text-emerald-400" />
+                        <span dir="ltr" className="font-medium">+201007419344</span>
+                      </a>
+                    </div>
                     <span className="font-mono text-[11px] opacity-60">v1.0</span>
                   </div>
                 </div>
@@ -254,6 +278,33 @@ function LoginPage() {
             <p className="text-center text-xs text-muted-foreground">
               {t("Demo preview — no credentials required.")}
             </p>
+
+            {/* Mobile Developer Credits */}
+            <div className="flex flex-col items-center gap-1.5 border-t border-border pt-3 text-center text-xs text-muted-foreground lg:hidden">
+              <span className="font-medium">
+                {t("Developer")}: <strong className="text-foreground">Mr. Hafez Rahim</strong>
+              </span>
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://odooteams.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1 text-primary hover:underline"
+                >
+                  <Globe className="size-3" />
+                  <span>Odooteams.com</span>
+                </a>
+                <span>•</span>
+                <a
+                  href="tel:+201007419344"
+                  className="inline-flex items-center gap-1 text-primary hover:underline"
+                  dir="ltr"
+                >
+                  <Phone className="size-3 text-emerald-500" />
+                  <span>+201007419344</span>
+                </a>
+              </div>
+            </div>
           </CardContent>
         </Card>
       </div>

@@ -43,6 +43,7 @@ const ar: Record<string, string> = {
   "248 employees · 3 locations · 4 shifts": "٢٤٨ موظفًا · ٣ مواقع · ٤ ورديات",
 
   // Login & Slider
+  Developer: "المطور",
   "Sign in": "تسجيل الدخول",
   "Use your work account to continue.": "استخدم حساب العمل الخاص بك للمتابعة.",
   Email: "البريد الإلكتروني",
