@@ -24,6 +24,17 @@ export function EmployeeShell({
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-0">
+      <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-card/95 px-4 py-3 backdrop-blur md:hidden">
+        <img src={logoAsset.url} alt="Attend360" className="h-7 w-auto" />
+        <Link
+          to="/employee/profile"
+          className="grid size-9 place-items-center rounded-full bg-primary-soft text-xs font-semibold text-primary"
+          aria-label="My profile"
+        >
+          AA
+        </Link>
+      </header>
+
       <div className="mx-auto flex max-w-6xl gap-6 px-4 py-5 sm:px-6">
         <aside className="hidden w-56 shrink-0 md:block">
           <div className="sticky top-6 rounded-2xl border border-border bg-card p-3 shadow-card">
