@@ -223,16 +223,15 @@ function LoginPage() {
       <div className="flex h-screen max-h-screen items-center justify-center overflow-y-auto p-6 lg:col-span-5 xl:col-span-5 2xl:col-span-4">
         <Card className="w-full max-w-sm border-border shadow-card">
           <CardContent className="space-y-5 p-6 sm:p-7">
-            {/* Brand Logo Above Sign In */}
-            <div className="mb-1">
-              <BrandLogo mode="web" className="h-10 sm:h-11 w-auto max-w-[200px]" />
-            </div>
-
-            <div>
-              <h1 className="text-2xl font-bold tracking-tight text-foreground">{t("Sign in")}</h1>
-              <p className="mt-1 text-sm text-muted-foreground">
-                {t("Use your work account to continue.")}
-              </p>
+            {/* Centered Brand Logo & Sign In Header */}
+            <div className="flex flex-col items-center text-center space-y-2">
+              <BrandLogo mode="web" className="h-14 sm:h-16 w-auto max-w-[250px] object-contain" />
+              <div className="pt-1">
+                <h1 className="text-2xl font-bold tracking-tight text-foreground">{t("Sign in")}</h1>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  {t("Use your work account to continue.")}
+                </p>
+              </div>
             </div>
 
             <div className="space-y-3.5">
