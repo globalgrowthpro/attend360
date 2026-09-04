@@ -3,6 +3,7 @@ import { CalendarDays, Clock, FileBarChart, Home, User } from "lucide-react";
 import type { ReactNode } from "react";
 
 import logoAsset from "@/assets/attend360-logo.png.asset.json";
+import { useAvatarUrl } from "@/lib/avatar-store";
 import { cn } from "@/lib/utils";
 
 const nav = [
@@ -21,17 +22,24 @@ export function EmployeeShell({
   children: ReactNode;
 }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const avatar = useAvatarUrl();
 
   return (
     <div className="min-h-screen bg-background pb-20 md:pb-0">
       <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-card/95 px-4 py-3 backdrop-blur md:hidden">
         <img src={logoAsset.url} alt="Attend360" className="h-7 w-auto" />
-        <Link
-          to="/employee/profile"
-          className="grid size-9 place-items-center rounded-full bg-primary-soft text-xs font-semibold text-primary"
-          aria-label="My profile"
-        >
-          AA
+        <Link to="/employee/profile" aria-label="My profile">
+          {avatar ? (
+            <img
+              src={avatar}
+              alt="Ahmed Ali"
+              className="size-9 rounded-full object-cover"
+            />
+          ) : (
+            <span className="grid size-9 place-items-center rounded-full bg-primary-soft text-xs font-semibold text-primary">
+              AA
+            </span>
+          )}
         </Link>
       </header>
 
