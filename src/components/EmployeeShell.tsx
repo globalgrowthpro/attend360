@@ -26,12 +26,18 @@ export function EmployeeShell({
     <div className="min-h-screen bg-background pb-20 md:pb-0">
       <header className="sticky top-0 z-30 flex items-center justify-between border-b border-border bg-card/95 px-4 py-3 backdrop-blur md:hidden">
         <img src={logoAsset.url} alt="Attend360" className="h-7 w-auto" />
-        <Link
-          to="/employee/profile"
-          className="grid size-9 place-items-center rounded-full bg-primary-soft text-xs font-semibold text-primary"
-          aria-label="My profile"
-        >
-          AA
+        <Link to="/employee/profile" aria-label="My profile">
+          {avatar ? (
+            <img
+              src={avatar}
+              alt="Ahmed Ali"
+              className="size-9 rounded-full object-cover"
+            />
+          ) : (
+            <span className="grid size-9 place-items-center rounded-full bg-primary-soft text-xs font-semibold text-primary">
+              AA
+            </span>
+          )}
         </Link>
       </header>
 
