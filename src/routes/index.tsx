@@ -48,13 +48,14 @@ export const Route = createFileRoute("/")({
 });
 
 const kpis = [
-  { label: "Total Employees", value: "248", tone: "bg-primary-soft text-primary", to: "/employees", status: undefined },
-  { label: "Present", value: "213", tone: "bg-success-soft text-success", to: "/attendance", status: "present" },
-  { label: "Absent", value: "18", tone: "bg-danger-soft text-danger", to: "/attendance", status: "absent" },
-  { label: "Late", value: "12", tone: "bg-warning-soft text-warning", to: "/attendance", status: "late" },
-  { label: "On Leave", value: "5", tone: "bg-info-soft text-info", to: "/attendance", status: "leave" },
-  { label: "Working Now", value: "174", tone: "bg-violet-soft text-violet", to: "/attendance", status: undefined },
+  { label: "Total Employees", value: "248", tone: "bg-primary text-primary-foreground", card: "bg-primary-soft border-primary/20", to: "/employees", status: undefined },
+  { label: "Present", value: "213", tone: "bg-success text-success-foreground", card: "bg-success-soft border-success/20", to: "/attendance", status: "present" },
+  { label: "Absent", value: "18", tone: "bg-danger text-danger-foreground", card: "bg-danger-soft border-danger/20", to: "/attendance", status: "absent" },
+  { label: "Late", value: "12", tone: "bg-warning text-warning-foreground", card: "bg-warning-soft border-warning/20", to: "/attendance", status: "late" },
+  { label: "On Leave", value: "5", tone: "bg-info text-info-foreground", card: "bg-info-soft border-info/20", to: "/attendance", status: "leave" },
+  { label: "Working Now", value: "174", tone: "bg-violet text-primary-foreground", card: "bg-violet-soft border-violet/20", to: "/attendance", status: undefined },
 ] as const;
+
 
 const breakdown = [
   { label: "Present", pct: 86, cls: "bg-success" },
@@ -106,7 +107,7 @@ function Dashboard() {
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
         {kpis.map((kpi) => (
           <Link key={kpi.label} to={kpi.to} className="group">
-            <Card className="h-full transition-shadow hover:shadow-pop">
+            <Card className={`h-full transition-shadow hover:shadow-pop ${kpi.card}`}>
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <span
